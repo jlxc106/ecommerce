@@ -2,20 +2,34 @@ import React, { Component } from 'react';
 import Payments from './Payments';
 import { Navbar, NavItem, Icon } from 'react-materialize';
 import { Link } from 'react-router-dom';
-//
 
 class Header extends Component {
   constructor(props) {
     super(props);
   }
 
+  // componentDidMount() {
+  //   // $(".button-collapse").sideNav()
+  //   // this.initializeSideBar();
+  // }
+
+  // initializeSideBar() {
+  //   // console.log($('.sidenav'));
+  //   // $('.sidenav').sidenav();
+  //   // var elems = document.querySelectorAll('.sidenav');
+  //   // var instances = M.Sidenav.init(elems, options);
+  // }
+
   renderHeaderLinks() {
     switch (this.props.auth) {
       case null:
-        return;
       case false: //user is not logged in
         return (
-          <Navbar brand="Jay's Store" right fixed>
+          <Navbar
+            brand="Jay's Store"
+            right
+            fixed
+          >
             <NavItem href="/auth/google">Sign in with Google</NavItem>
             <li>
               <Link to="/signIn">Sign In</Link>
@@ -29,41 +43,30 @@ class Header extends Component {
             <li className="li-stripe-button">
               <Payments />
             </li>
-            <li>Credits: {this.props.auth.credits}</li>
+            <NavItem onClick={() => {}}>
+              Credits: {this.props.auth.credits}
+            </NavItem>
+            {/* <NavItem onClick={(event)=>this.onClickMyAccount(event)}>My Account</NavItem> */}
             <li>
               <Link to="my_account">
-                <Icon>person</Icon>
+                My Account
               </Link>
             </li>
             <NavItem href="/auth/logout">Logout</NavItem>
           </Navbar>
         );
-      // <NavBar>
-
-      // </NavBar>
-      // <a href="/auth/logout">Logout</a>;
     }
   }
 
-  onClickCredits(event) {}
+  onClickMyAccount(event) {
+    event.preventDefault();
+    this.props.history.push('/my_account');
+  }
 
   render() {
-    // let welcomeMessage = <a href="/auth/google">Sign In with Google</a>;
+    console.log(this.props);
 
-    // if (this.props.auth) {
-    //   welcomeMessage = <a href="">log out</a>;
-    // }
-    console.log(this.props.auth);
-
-    return (
-      <div className="header">{this.renderHeaderLinks()}</div>
-      // <div className="header">
-      //   <div className="header-item">Custom Store</div>
-      //   <Payments />
-      //   <div>credits: {this.props.auth ? this.props.auth.credits: 0}</div>
-      //   <div className="header-item">{this.renderHeaderLinks()}</div>
-      // </div>
-    );
+    return <div className="header">{this.renderHeaderLinks()}</div>;
   }
 }
 
