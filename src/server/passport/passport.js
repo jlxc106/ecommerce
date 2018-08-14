@@ -7,12 +7,13 @@ const config = require('../config/config');
 const User = mongoose.model('User');
 
 passport.serializeUser((user, done) => {
-  console.log('passport user: ', user);
+  console.log('serialize user: ', user);
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
   User.findById(id).then(user => {
+    console.log('deserialize user');
     done(null, user);
   });
 });

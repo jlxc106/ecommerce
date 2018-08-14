@@ -3,10 +3,13 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
+const path = require('path');
 
 const config = require('./server/config/config');
+const stripe = require('stripe')(config.stripeSecretKey);
 const requireLogin = require('./server/middleware/requireLogin');
 
+// const stripeSecretKey = config.stripeSecretKey;
 require('./server/models/User');
 require('./server/passport/passport');
 
@@ -69,6 +72,23 @@ app.get('/auth/requireLogin', requireLogin, async (req, res) => {
   res.send('hola hola');
 });
 
-// app.use(express.static('public'));
+app.post('/api/stripe', requireLogin, async (req, res) => {
+  // console.log(req.body);
+  const charge = await stripe.charges.create({
+    amount: 500,
+    currency: 'usd',
+    source: req.body.id,
+    description: 'Charge for 5 tokens'
+  });
+  // console.log(charge);
+  req.user.credits += 5;
+  const user = await req.user.save();
+
+  res.send(user);
+});
+
+// console.log(path.join(__dirname, "/../public/"));
+
+app.use(express.static(path.join(__dirname, '/../public')));
 
 app.listen(3000, () => console.log(`listening on port 3000`));
