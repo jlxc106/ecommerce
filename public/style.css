@@ -1,0 +1,21 @@
+.header {
+  position: static;
+  width: 100vw;
+  height: 300px;
+    background: skyblue;
+}
+
+.header-item {
+  display: inline-block;
+}
+
+.li-stripe-button{
+  right: 50px;
+}
+
+/* @media only screen and (max-width:992px){
+  .li-stripe-button{
+    top:50px;
+    left: 50px;
+  }
+} */
