@@ -8,18 +8,6 @@ class Header extends Component {
     super(props);
   }
 
-  // componentDidMount() {
-  //   // $(".button-collapse").sideNav()
-  //   // this.initializeSideBar();
-  // }
-
-  // initializeSideBar() {
-  //   // console.log($('.sidenav'));
-  //   // $('.sidenav').sidenav();
-  //   // var elems = document.querySelectorAll('.sidenav');
-  //   // var instances = M.Sidenav.init(elems, options);
-  // }
-
   renderHeaderLinks() {
     switch (this.props.auth) {
       case null:
@@ -64,8 +52,6 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     return <div className="header">{this.renderHeaderLinks()}</div>;
   }
 }

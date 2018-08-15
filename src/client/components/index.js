@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actions from '../actions/index';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import createHistory from "history/createBrowserHistory"
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 
-// import {getCurrentUser} from '../actions/index';
-import Side_Nav from './Side_Nav';
 import SignIn from './SignIn';
 import Header from './Header';
 import Home from './Home';
 import Account from './Account';
+import SignUp from './SignUp';
+import * as actions from '../actions/index';
+import AdminPanel from './AdminPanel';
+import AdminRoute from './hoc/AdminRoute';
+import UserRoute from './hoc/UserRoute';
+
 
 class App extends Component {
   constructor(props) {
@@ -21,28 +24,23 @@ class App extends Component {
     this.props.getCurrentUser();
   }
 
-
-
   render() {
-    console.log(this);
+    console.log(this.props);
     const history = createHistory();
-
-    // console.log('stripe key ', process.env.REACT_APP_STRIPE_KEY);
-    // console.log('stripe key ', process.env.NODE_ENV);
     return (
-      // <div>
-        // <BrowserRouter>
-          <div>
-            <Header auth={this.props.auth} history={history}/>
-            {/* <Side_Nav /> */}
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/signIn" component={SignIn} />
-              <Route path="/account" component={Account} />
-            </Switch>
-          </div>
-        // </BrowserRouter>
-      // </div>
+      <Router>
+        <div>
+          <Header auth={this.props.auth} history={history} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/signIn" component={SignIn} />
+            <Route path="/signUp" component={SignUp} />
+            <UserRoute path="/my_account" auth={this.props.auth} component={Account} />
+            <AdminRoute path="/admin" auth={this.props.auth} component={AdminPanel} />
+            {/* <Route path="/admin" component={AdminPanel} /> */}
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
@@ -50,10 +48,6 @@ class App extends Component {
 function mapStateToProps({ auth }) {
   return { auth };
 }
-
-// function mapDispatchToProps(dispatch){
-//     return bindActionCreators({getCurrentUser}, dispatch);
-// }
 
 export default connect(
   mapStateToProps,

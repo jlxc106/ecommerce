@@ -5,7 +5,6 @@ import App from './components/index';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
 import thunk from 'redux-thunk';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
 // require('../../public/style.css');
 // import "./css/style.css";
@@ -19,9 +18,7 @@ const store = createStoreWithMiddleware(reducers);
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
       <App />
-    </Router>
   </Provider>,
   document.getElementById('app')
 );

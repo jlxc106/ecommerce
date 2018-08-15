@@ -1,9 +1,9 @@
-.header {
+/* .header {
   position: static;
   width: 100vw;
   height: 300px;
     background: skyblue;
-}
+} */
 
 .header-item {
   display: inline-block;
@@ -15,6 +15,14 @@
 
 #sidenav-overlay{
   z-index: 0;
+}
+
+.blue i{
+  line-height: inherit !important;
+}
+
+.text-red{
+  color: red;
 }
 
 /* .li-stripe-button > span{

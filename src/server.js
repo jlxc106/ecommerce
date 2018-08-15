@@ -46,6 +46,36 @@ app.get(
   })
 );
 
+app.post(
+  '/auth/signIn',
+  (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      if (info) {
+        return res.send(info);
+      }
+      if (user) {
+        return res.send(user);
+      }
+    })(req, res, next);
+  }
+  //   passport.authenticate('local', { failureRedirect: '/signIn',
+  //   // failureFlash: true
+  // }),
+  //   function(req, res) {
+  //     res.send(req.user);
+  //     // res.redirect('/');
+  //   }
+);
+
+// app.post('/auth/signIn', passport.authenticate('local', {
+//   successRedirect: '/',
+//   failureRedirect: '/signIn',
+//   failureFlash: true
+// }))
+
 // GET /auth/google/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the
@@ -68,8 +98,14 @@ app.get('/auth/logout', (req, res) => {
   res.redirect('/');
 });
 
-app.get('/auth/requireLogin', requireLogin, async (req, res) => {
-  res.send('hola hola');
+// app.get('/auth/requireLogin', requireLogin, async (req, res) => {
+//   res.send('hola hola');
+// });
+
+app.get('/auth/requestAdmin', requireLogin, async (req, res) => {
+  req.user.isAdmin = true;
+  const user = await req.user.save();
+  res.send(user);
 });
 
 app.post('/api/stripe', requireLogin, async (req, res) => {
@@ -86,6 +122,10 @@ app.post('/api/stripe', requireLogin, async (req, res) => {
 
   res.send(user);
 });
+
+// app.post('/auth/signin', async (req, res)=>{
+
+// })
 
 // console.log(path.join(__dirname, "/../public/"));
 
