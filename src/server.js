@@ -32,24 +32,17 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/auth/currentUser', (req, res) => {
+  console.log('user obj: ', req.user);
   res.send(req.user);
 });
-
-app.get(
-  '/auth/google',
-  passport.authenticate('google', {
-    scope: [
-      // 'https://www.googleapis.com/auth/plus.login'
-      'profile',
-      'email'
-    ]
-  })
-);
 
 app.post(
   '/auth/signIn',
   (req, res, next) => {
-    passport.authenticate('local', (err, user, info) => {
+    passport.authenticate('local-signin', (err, user, info) => {
+      console.log('err', err);
+      console.log('user', user);
+      console.log('info', info);
       if (err) {
         return res.status(400).send(err);
       }
@@ -57,7 +50,11 @@ app.post(
         return res.send(info);
       }
       if (user) {
-        return res.send(user);
+        req.login(user, function(err){
+          if(err){return next(err,null)}
+          return res.send(user);
+        });
+        // return res.send(user);
       }
     })(req, res, next);
   }
@@ -70,12 +67,42 @@ app.post(
   //   }
 );
 
+app.post('/auth/signUp', (req, res, next) => {
+  passport.authenticate('local-signup', (err, user, info) => {
+    console.log('err', err);
+    console.log('user', user);
+    console.log('info', info);
+    if (err) {
+      return res.status(400).send(err);
+    }
+    if (info) {
+      return res.send(info);
+    }
+    if (user) {
+      req.login(user, function(err){
+        if(err){return next(err, null)}
+        return res.send(user);
+      });
+      // return res.send(user);
+    }
+  })(req, res, next);
+});
+
 // app.post('/auth/signIn', passport.authenticate('local', {
 //   successRedirect: '/',
 //   failureRedirect: '/signIn',
 //   failureFlash: true
 // }))
-
+app.get(
+  '/auth/google',
+  passport.authenticate('google', {
+    scope: [
+      // 'https://www.googleapis.com/auth/plus.login'
+      'profile',
+      'email'
+    ]
+  })
+);
 // GET /auth/google/callback
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request.  If authentication fails, the user will be redirected back to the

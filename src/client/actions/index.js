@@ -2,7 +2,8 @@ import axios from 'axios';
 
 export const CURRENT_USER = 'current_user';
 export const SIGN_IN_ERROR = 'sign_in_error';
-
+export const SIGN_UP_ERROR = 'sign_up_error';
+export const ACCOUNT_ERROR = 'account_error';
 
 export const getCurrentUser = () => async dispatch => {
   try {
@@ -12,44 +13,79 @@ export const getCurrentUser = () => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.log('disconnected from api server');
+    console.error('disconnected from api server');
   }
 };
 
 export const handleToken = token => async dispatch => {
   const res = await axios.post('/api/stripe', token);
-  console.log(res);
+  // console.log(res);
   dispatch({
     type: CURRENT_USER,
     payload: res.data
   });
 };
 
-export const handleFormSubmit = (form, history) => async dispatch => {
+export const handleSignInFormSubmit = (form, history) => async dispatch => {
   try {
-    // console.log(form);
     const res = await axios.post('/auth/signIn', form);
-    console.log('post response: ',res);
-    //deal with errors here//
-    if(res.data.email){
+    // console.log('post response: ',res);
+    if (res.data.email) {
       dispatch({
         type: CURRENT_USER,
         payload: res.data
       });
-      history.push('/')
-    }else{
-      console.log(res.data);
+      history.push('/');
+    } else {
       dispatch({
         type: SIGN_IN_ERROR,
         payload: res.data
-      })
+      });
     }
-
   } catch (err) {
-    console.log(err);
-
+    console.error(err);
   }
 };
+
+export const handleSignUpFormSubmit = (form, history) => async dispatch => {
+  try {
+    const res = await axios.post('/auth/signUp', form);
+    if (res.data.email) {
+      dispatch({
+        type: CURRENT_USER,
+        payload: res.data
+      });
+      history.push('/');
+    } else {
+      dispatch({
+        type: SIGN_UP_ERROR,
+        payload: res.data
+      });
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const handleAdminRequest = () => async dispatch =>{
+  try{
+    const res = await axios.get('/auth/requestAdmin');
+    if(res.data.isAdmin){
+      dispatch({
+        type: CURRENT_USER,
+        payload: res.data
+      })
+    }
+    else{
+      dispatch({
+        type: ACCOUNT_ERROR,
+        payload: res.data
+      })
+    }
+  }catch(err){
+    console.error(err);
+  }
+}
 
 // export function getCurrentUser() {
 //   const res = axios.get('/auth/currentUser');

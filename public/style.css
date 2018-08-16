@@ -9,28 +9,42 @@
   display: inline-block;
 }
 
-.li-stripe-button{
+.li-stripe-button {
   padding-right: 50px;
 }
 
-#sidenav-overlay{
+#sidenav-overlay {
   z-index: 0;
 }
 
-.blue i{
+.blue i {
   line-height: inherit !important;
 }
 
-.text-red{
+.text-red {
   color: red;
+}
+
+.error-li {
+  list-style-type: disc !important;
+}
+
+.div-horizontal-margin {
+  margin: 0 30px 0 30px;
+}
+
+@media only screen and (min-width: 992px) {
+  nav .brand-logo {
+    left: 10px;
+  }
 }
 
 /* .li-stripe-button > span{
   margin: auto;
 } */
 
-@media only screen and (max-width:992px){
-  .li-stripe-button{
+@media only screen and (max-width: 992px) {
+  .li-stripe-button {
     margin: 10px;
   }
 }

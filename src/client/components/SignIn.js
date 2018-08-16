@@ -3,9 +3,9 @@ import { reduxForm, Field, Label } from 'redux-form';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import validator from 'email-validator';
-import * as actions from '../actions/index';
 import { Link } from 'react-router-dom';
 
+import * as actions from '../actions/index';
 import { renderField } from '../helpers/renderField';
 
 class SignIn extends Component {
@@ -15,51 +15,46 @@ class SignIn extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault();
-
-    const { email, password } = this.props.form.signIn.values;
-
-    this.props.handleFormSubmit(
-      {
-        email,
-        password
-      },
-      this.props.history
-    );
+    if (!this.props.form.signIn.syncErrors) {
+      console.log('submitting sign in form');
+      const { email, password } = this.props.form.signIn.values;
+      this.props.handleSignInFormSubmit(
+        {
+          email,
+          password
+        },
+        this.props.history
+      );
+    }
   }
 
   renderSignInError() {
     if (!_.isEmpty(this.props.error)) {
       const { message, type } = this.props.error;
       if (type === 'sign_in_error') {
-        return <h3>{message}</h3>;
+        return <h3 className="text-red">{message}</h3>;
       }
     }
     return null;
   }
 
   render() {
-    // const { handleFormSubmit } = this.props;
-    console.log(this.props);
-
+    console.log(this.props.form.signIn.syncErrors);
     return (
-      <div>
+      <div className="div-horizontal-margin">
         <h1>Sign In</h1>
         <hr />
         <form onSubmit={e => this.handleFormSubmit(e)}>
-          {/* <label>email</label> */}
           <Field
             component={renderField}
             name="email"
             label="email"
-            // component="input"
             type="text"
           />
-          {/* <label>password</label> */}
           <Field
             component={renderField}
             name="password"
             label="password"
-            // component="input"
             type="password"
           />
           <button onClick={e => this.handleFormSubmit(e)}>Submit</button>
@@ -86,11 +81,7 @@ const validate = values => {
 
   if (!values.password) {
     errors.password = 'Required';
-  }
-//   } else if (values.password.length < 8) {
-//     errors.password = 'Must be 8 characters or more';
-//   }
-   else if (
+  } else if (
     !values.password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
   ) {
     errors.password = [
@@ -104,14 +95,9 @@ const validate = values => {
   return errors;
 };
 
-// const warn = value =>{
-
-// }
-
 export default reduxForm({
   form: 'signIn',
   validate
-  //   warn
 })(
   connect(
     mapStateToProps,
