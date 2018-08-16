@@ -1,15 +1,48 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Button } from 'react-materialize';
+import { connect } from 'react-redux';
 
-class AdminPanel extends Component{
-    constructor(props){
-        super(props);
-    }
+import ListProduct from './ListProduct';
+import * as actions from '../actions/index';
 
-    render(){
-        return(
-            <div>Admin Panel</div>
-        )
-    }
+class AdminPanel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: false
+    };
+  }
+
+  componentWillMount() {
+    //   this.props.
+  }
+
+  enableEdit() {
+    this.setState({
+      editMode: true
+    });
+  }
+
+  render() {
+    return (
+      <div className="div-horizontal-margin">
+        <h1>Admin Panel</h1>
+        <hr />
+        <div>Your Products</div>
+        <ListProduct />
+        <Button className="orange" onClick={() => this.enableEdit()}>
+          Edit
+        </Button>
+      </div>
+    );
+  }
 }
 
-export default AdminPanel;
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(
+  mapStateToProps,
+  actions
+)(AdminPanel);

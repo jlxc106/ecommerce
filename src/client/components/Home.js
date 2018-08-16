@@ -17,10 +17,10 @@ class Home extends Component {
   render() {
     console.log(this.props.auth);
     return (
-      <div className="home-div">
+      <div className="home-div div-horizontal-margin">
         Home Component to be HERE
         <hr />
-        {this.renderAdminLink()}
+        {/* {this.renderAdminLink()} */}
       </div>
     );
   }

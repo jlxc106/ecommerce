@@ -9,8 +9,8 @@ class Account extends Component {
   }
 
   handleAdminRequest() {
-    const {isAdmin} = this.props.auth;
-    if(!isAdmin){
+    const { isAdmin } = this.props.auth;
+    if (!isAdmin) {
       this.props.handleAdminRequest();
     }
   }
@@ -23,7 +23,7 @@ class Account extends Component {
         <div>
           <p>Name: {name}</p>
           <p>Email: {email}</p>
-          <p>Store Admin Status: {isAdmin ? 'true' : 'false'}</p>
+          <p>Store Admin Status: {isAdmin ? 'yes' : 'no'}</p>
         </div>
       );
     }
@@ -37,6 +37,24 @@ class Account extends Component {
     );
   }
 
+  renderAdminButton() {
+    if (this.props.auth) {
+      const { isAdmin } = this.props.auth;
+      if (isAdmin) {
+        return (<Button onClick={()=>this.props.history.push('/admin')}>
+        Go to Admin Panel
+        </Button>);
+      } else {
+        return (
+          <Button onClick={() => this.handleAdminRequest()}>
+            Request to be store vendor*
+          </Button>
+        );
+      }
+    }
+    return null;
+  }
+
   render() {
     console.log(this.props);
     return (
@@ -47,9 +65,8 @@ class Account extends Component {
           <h4>User Info</h4>
           {this.renderUserInfo()}
         </div>
-        <Button onClick={() => this.handleAdminRequest()}>
-          Request to be store vendor*
-        </Button>
+        {this.renderAdminButton()}
+
         <br />
         <br />
         <span className="red-text">

@@ -60,35 +60,6 @@ passport.use(
       } catch (err) {
         done(err, null);
       }
-
-      //   , function(err, user){
-      //   if(err){
-      //     console.log('34')
-      //     return done(err);
-      //   }
-      //   if(user){
-      //     return done(null, false, {message: "Account already exists under that email"})
-      //   }
-      //   // if(!user){
-      //   //   console.log('38 ')
-      //   //   // return done(JSON.stringify({message: 'Invalid user/pw combo'}), null);
-      //   //   return done(null, false, {message: 'Invalid email/password'});
-      //   // }
-      //   // console.log(42)
-      //   // if(user.password.length === 0){
-      //   //   // return done(JSON.stringify({message: 'No password set for account, sign up to set up password'}), null);
-
-      //   //   return done(null, false, {message: '--will change later on -- No password set for account, sign up to set up password'})
-      //   // }
-      //   // console.log(46);
-      //   // if(!user.validatePassword(password)){
-      //   //   // return done(JSON.stringify({message: 'Invalid user/pw combo'}), null);
-
-      //   //   return done(null, false, {message: 'Invalid email/password'});
-      //   // }
-      //   console.log('user 50 ', user);
-      //   return done(null, user);
-      // })
     }
   )
 );

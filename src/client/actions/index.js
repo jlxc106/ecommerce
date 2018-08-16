@@ -87,10 +87,11 @@ export const handleAdminRequest = () => async dispatch =>{
   }
 }
 
-// export function getCurrentUser() {
-//   const res = axios.get('/auth/currentUser');
-//   return {
-//     type: CURRENT_USER,
-//     payload: res.data
-//   };
-// }
+export const getUserProducts = () => async dispatch =>{
+  try{  
+    const res = await axios.get('/api/userProducts');
+    
+  }catch(err){
+    console.error(err);
+  }
+}
