@@ -6,10 +6,6 @@ const userSchema = new Schema({
   name: String,
   googleId: String,
   email: String,
-  credits: {
-    type: Number,
-    default: 0
-  },
   isAdmin: {
     type: Boolean,
     default: false

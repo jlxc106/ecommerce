@@ -6,6 +6,7 @@ export const SIGN_UP_ERROR = 'sign_up_error';
 export const ACCOUNT_ERROR = 'account_error';
 export const REGISTER_PRODUCT = 'register_product';
 export const USER_PRODUCTS = 'user_products';
+export const ALL_PRODUCTS = 'all_products';
 
 export const getCurrentUser = () => async dispatch => {
   try {
@@ -124,3 +125,28 @@ export const createProduct = (formValues, file, callback) => async dispatch => {
     console.error(err);
   }
 };
+
+export const getAllProducts = () => async dispatch =>{
+  try{
+    const res = await axios.get('/api/getProducts');
+    dispatch({
+      type: ALL_PRODUCTS,
+      payload: res.data
+    })
+  }catch(err){
+    console.error(err);
+  }
+}
+
+
+export const editProduct = (data) => async dispatch =>{
+  try{
+    // await axios.post()
+  }catch(err){
+    console.error(err);
+  }
+
+  // dispatch({
+
+  // })
+}

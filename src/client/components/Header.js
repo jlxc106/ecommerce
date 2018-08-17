@@ -13,11 +13,7 @@ class Header extends Component {
       case null:
       case false: //user is not logged in
         return (
-          <Navbar
-            brand="Jay's Store"
-            right
-            fixed
-          >
+          <Navbar brand="Jay's Store" right fixed>
             <NavItem href="/auth/google">Sign in with Google</NavItem>
             <li>
               <Link to="/signIn">Sign In</Link>
@@ -31,14 +27,12 @@ class Header extends Component {
             <li className="li-stripe-button">
               <Payments />
             </li>
-            <NavItem onClick={() => {}}>
+            {/* <NavItem onClick={() => {}}>
               Credits: {this.props.auth.credits}
-            </NavItem>
+            </NavItem> */}
             {/* <NavItem onClick={(event)=>this.onClickMyAccount(event)}>My Account</NavItem> */}
             <li>
-              <Link to="my_account">
-                My Account
-              </Link>
+              <Link to="my_account">My Account</Link>
             </li>
             <NavItem href="/auth/logout">Logout</NavItem>
           </Navbar>

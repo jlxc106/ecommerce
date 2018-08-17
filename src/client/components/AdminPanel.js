@@ -55,6 +55,10 @@ class AdminPanel extends Component {
     this.setState({ file });
   }
 
+  handleProductEdit(num){
+    console.log();
+  }
+
   handleProductRegister(e) {
     e.preventDefault();
     if (this.props.form.registerProduct.syncErrors) {
@@ -97,7 +101,7 @@ class AdminPanel extends Component {
           <h5>Your Products</h5>
         </div>
         <hr />
-        <ListProduct />
+        <ListProduct callback={this.handleProductEdit}/>
         {/* <Button className="orange" onClick={() => this.enableEdit()}>
           Edit
         </Button> */}

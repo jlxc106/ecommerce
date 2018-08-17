@@ -77,4 +77,14 @@ module.exports = app => {
 
     res.send(user);
   });
+
+  app.get('/api/getProducts', async (req, res) => {
+    try {
+      const listOfProducts = await Product.find({}, null, { batchSize: 20 });
+      // return listOfProducts;
+      res.send(listOfProducts);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  });
 };

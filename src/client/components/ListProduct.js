@@ -15,7 +15,11 @@ class ListProduct extends Component {
     if (this.props.userProduct.length > 0) {
       return this.props.userProduct.map((item, index) => {
         return (
-            <ListItemProduct key={index} item={item} />
+          <ListItemProduct
+            key={index}
+            item={item}
+            callback={this.props.callback}
+          />
         );
       });
     } else {

@@ -13,7 +13,7 @@ import * as actions from '../actions/index';
 import AdminPanel from './AdminPanel';
 import AdminRoute from './hoc/AdminRoute';
 import UserRoute from './hoc/UserRoute';
-
+import ProductPage from './ProductPage';
 
 class App extends Component {
   constructor(props) {
@@ -35,9 +35,17 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/signIn" component={SignIn} />
             <Route path="/signUp" component={SignUp} />
-            <UserRoute path="/my_account" auth={this.props.auth} component={Account} />
-            <AdminRoute path="/admin" auth={this.props.auth} component={AdminPanel} />
-            {/* <Route path="/admin" component={AdminPanel} /> */}
+            <UserRoute
+              path="/my_account"
+              auth={this.props.auth}
+              component={Account}
+            />
+            <AdminRoute
+              path="/admin"
+              auth={this.props.auth}
+              component={AdminPanel}
+            />
+            <Route path="/product_page" component={ProductPage} />
           </Switch>
         </div>
       </Router>
