@@ -4,6 +4,8 @@ export const CURRENT_USER = 'current_user';
 export const SIGN_IN_ERROR = 'sign_in_error';
 export const SIGN_UP_ERROR = 'sign_up_error';
 export const ACCOUNT_ERROR = 'account_error';
+export const REGISTER_PRODUCT = 'register_product';
+export const USER_PRODUCTS = 'user_products';
 
 export const getCurrentUser = () => async dispatch => {
   try {
@@ -67,31 +69,58 @@ export const handleSignUpFormSubmit = (form, history) => async dispatch => {
   }
 };
 
-export const handleAdminRequest = () => async dispatch =>{
-  try{
+export const handleAdminRequest = () => async dispatch => {
+  try {
     const res = await axios.get('/auth/requestAdmin');
-    if(res.data.isAdmin){
+    if (res.data.isAdmin) {
       dispatch({
         type: CURRENT_USER,
         payload: res.data
-      })
-    }
-    else{
+      });
+    } else {
       dispatch({
         type: ACCOUNT_ERROR,
         payload: res.data
-      })
+      });
     }
-  }catch(err){
+  } catch (err) {
     console.error(err);
   }
-}
+};
 
-export const getUserProducts = () => async dispatch =>{
-  try{  
+export const getUserProducts = () => async dispatch => {
+  try {
     const res = await axios.get('/api/userProducts');
-    
-  }catch(err){
+    dispatch({
+      type: USER_PRODUCTS,
+      payload: res.data
+    })
+  } catch (err) {
     console.error(err);
   }
-}
+};
+
+export const createProduct = (formValues, file, callback) => async dispatch => {
+  try {
+    let imageUrl = '';
+    const uploadConfig = await axios.get('/api/aws_presignedUrl');
+    if (file) {
+      await axios.put(uploadConfig.data.url, file, {
+        headers: { 'Content-Type': file.type }
+      });
+      imageUrl = uploadConfig.data.key;
+    }
+
+    const res = await axios.post('/api/createProduct', {
+      ...formValues,
+      imageUrl: imageUrl || ''
+    });
+    dispatch({
+      type: REGISTER_PRODUCT,
+      payload: res.data
+    });
+    callback();
+  } catch (err) {
+    console.error(err);
+  }
+};
