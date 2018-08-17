@@ -25,7 +25,7 @@ class Header extends Component {
         return (
           <Navbar brand="Jay's Store" right fixed>
             <li className="li-stripe-button">
-              <Payments />
+              {/* <Payments /> */}
             </li>
             {/* <NavItem onClick={() => {}}>
               Credits: {this.props.auth.credits}

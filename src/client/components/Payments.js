@@ -6,16 +6,18 @@ import { Button, Icon } from 'react-materialize';
 
 class Payments extends Component{
     render(){
+        const {description, name, price, quantity} = this.props.product;
+        console.log()
         return(
             <StripeCheckout
-            name="Stripe"
-            description="Add 10 cents for 5 credits"
-            amount={10}
+            name={`Buy ${name}`}
+            description={description}
+            amount={price}
             token={token=> this.props.handleToken(token)}
             stripeKey={process.env.REACT_APP_STRIPE_KEY}
             >
             {/* <button className="btn">Add Credits</button> */}
-            <Button className="blue">Add Credits<Icon left>add</Icon></Button>
+            <Button className="blue">Purchase<Icon left>add</Icon></Button>
             </StripeCheckout>
         )
     }

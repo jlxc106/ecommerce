@@ -25,6 +25,10 @@
   color: red;
 }
 
+.border-teal{
+  border: 1px solid teal;
+}
+
 .error-li {
   list-style-type: disc !important;
 }
@@ -41,6 +45,10 @@
 
 .ReactModal__Content--before-close {
   opacity: 0;
+}
+
+.contain-payment{
+  text-align:right;
 }
 
 /* .product-modal{

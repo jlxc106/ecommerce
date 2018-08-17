@@ -21,7 +21,8 @@ export const getCurrentUser = () => async dispatch => {
 };
 
 export const handleToken = token => async dispatch => {
-  const res = await axios.post('/api/stripe', token);
+  console.log(`token: `,token)
+  // const res = await axios.post('/api/stripe', token);
   // console.log(res);
   dispatch({
     type: CURRENT_USER,
