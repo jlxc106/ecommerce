@@ -5,9 +5,14 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const path = require('path');
 
-const config = require('./server/config/config');
+let config;
+if(process.env.NODE_ENV !== 'production'){
+  config = require('./server/config/config');
+}else{
+  config = process.env;
+}
+// const config = require('./server/config/config');
 const stripe = require('stripe')(config.stripeSecretKey);
-// const requireLogin = require('./server/middleware/requireLogin');
 
 // const stripeSecretKey = config.stripeSecretKey;
 require('./server/models/Product');
