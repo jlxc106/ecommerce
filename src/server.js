@@ -4,7 +4,8 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const path = require('path');
-var cors = require('cors');
+const sslRedirect = require('heroku-ssl-redirect');
+// var cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 
@@ -30,7 +31,8 @@ mongoose.connect(
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+app.user(sslRedirect());
 app.set('trust proxy', 1);
 app.use(bodyParser.json());
 app.use(
@@ -47,6 +49,6 @@ require('./server/routes/auth')(app);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-console.log(path.join(__dirname,'../public'));
+// console.log(path.join(__dirname,'../public'));
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
