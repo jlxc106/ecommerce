@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const path = require('path');
 
-const PORT = process.env.NODE_ENV || 3000;
+const PORT = process.env.PORT || 3000;
 
 let config;
 if(process.env.NODE_ENV !== 'production'){
