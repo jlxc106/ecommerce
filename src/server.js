@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const path = require('path');
 
+const PORT = process.env.NODE_ENV || 3000;
+
 let config;
 if(process.env.NODE_ENV !== 'production'){
   config = require('./server/config/config');
@@ -42,4 +44,4 @@ require('./server/routes/auth')(app);
 
 app.use(express.static(path.join(__dirname, '/../public')));
 
-app.listen(3000, () => console.log(`listening on port 3000`));
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
