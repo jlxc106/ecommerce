@@ -9,14 +9,11 @@ const config = require('../config/config');
 const User = mongoose.model('User');
 
 passport.serializeUser((user, done) => {
-  console.log('serialize user: ', user);
   done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-  console.log('trying to deserialize');
   User.findById(id).then(user => {
-    console.log('deserialize user: ', user);
     done(null, user);
   });
 });
@@ -44,7 +41,6 @@ passport.use(
           if (user.password === '' && user.name === name) {
             user.password = password;
             const updatedUser = await user.save();
-            console.log('update password');
             return done(null, updatedUser);
           }
           return done(null, false, {
@@ -74,23 +70,17 @@ passport.use(
       proxy: true
     },
     async (req, email, password, done) => {
-      console.log('--------email ', email);
-      console.log('--------pw', password);
-
       try {
         const user = await User.findOne({ email });
         if (!user) {
-          console.log(38);
           return done(null, false, { message: 'Invalid email/password' });
         }
-        console.log(42);
         if (user.password.length === 0) {
           return done(null, false, {
             message:
-              '--will change later on -- No password set for account, sign up to set up password'
+              'No password set for account, sign up to set up password'
           });
         }
-        console.log(46);
         user.validatePassword(password).then(
           confirmedUser => {
             return done(null, confirmedUser);
@@ -115,7 +105,6 @@ passport.use(
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log(profile);
       try {
         const existingUser = await User.findOne({ googleId: profile.id });
         if (existingUser) {

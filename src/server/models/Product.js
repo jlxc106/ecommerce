@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const productSchema = new Schema({
   seller: {
-    _id: Schema.Types.ObjectId,
+    _id: { type: Schema.Types.ObjectId, ref: 'User' },
     name: String,
     email: String
   },
@@ -14,23 +14,40 @@ const productSchema = new Schema({
     type: String,
     default: ''
   },
+  quantity: Number,
   imageUrl: {
     type: String,
     default: ''
   }
 });
 
-// userSchema.methods.validatePassword = async function(password) {
-//     console.log(password + ' is being validated');
-//     return new Promise(async (resolve, reject) => {
-//       const res = await bcrypt.compare(password, this.password);
-//       console.log(res, 'what is bcrypt result');
-//       if (res) {
-//         resolve(this);
-//       } else {
-//         reject('invalid password bruh');
-//       }
-//     });
-//   };
+productSchema.statics.findByIdAndUpdateQuantity = async function(_id, deltaQuantity){
+    return new Promise(async (resolve, reject)=>{
+        try{
+            let updatedDoc = await this.findByIdAndUpdate(_id, {$inc: {quantity: `-${deltaQuantity}`}}, {new:true})
+            if(updatedDoc.quantity < 0 ){
+                updatedDoc.quantity = updatedDoc.quantity + deltaQuantity;
+                await updatedDoc.save();
+                return reject({error: 'insufficient quantity in stock'});
+            }
+            resolve(updatedDoc);
+        }catch(err){
+            reject(err);
+        }
+    })
+}
+
+
+
+productSchema.statics.findByUser = async function(user) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const userProducts = await this.find({ seller: user });
+      resolve(userProducts);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
 
 mongoose.model('Product', productSchema);

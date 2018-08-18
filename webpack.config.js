@@ -18,8 +18,9 @@ module.exports = () => {
   return {
     entry: [
       //dev
-      'webpack-dev-server/client?http://localhost:8080',
-      __dirname + '/src/client/app.js'
+      // 'webpack-dev-server/client?http://localhost:8080',
+      __dirname + "/src/server.js",
+      // __dirname + '/src/client/app.js'
     ],
     module: {
       rules: [
@@ -70,6 +71,14 @@ module.exports = () => {
     //   },
     //   mode: 'production',
     mode: 'development',
-    plugins: [HTMLWebpackPluginConfig, new webpack.DefinePlugin(envKeys)]
+    plugins: [HTMLWebpackPluginConfig, new webpack.DefinePlugin(envKeys), 
+    //   new webpack.optimize.UglifyJsPlugin({
+    //   comments: false,
+    //   compress:{
+    //     warnings: false,
+    //     drop_console: true
+    //   }
+    // })
+  ]
   };
 };
