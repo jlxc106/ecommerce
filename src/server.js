@@ -4,6 +4,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const path = require('path');
+var cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 
@@ -29,6 +30,8 @@ mongoose.connect(
 
 const app = express();
 
+app.use(cors());
+app.set('trust proxy', 1);
 app.use(bodyParser.json());
 app.use(
   cookieSession({
