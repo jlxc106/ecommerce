@@ -42,6 +42,8 @@ app.use(passport.session());
 require('./server/routes/api')(app);
 require('./server/routes/auth')(app);
 
-app.use(express.static(path.join(__dirname, '/../public')));
+app.use(express.static(path.join(__dirname, '../public')));
+
+console.log(path.join(__dirname,'../public'));
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
