@@ -18,8 +18,9 @@ module.exports = () => {
   return {
     entry: [
       //dev
-      'webpack-dev-server/client?http://localhost:8080',
-      __dirname + '/src/client/app.js'
+      // 'webpack-dev-server/client?http://localhost:8080',
+      __dirname + "/src/server.js",
+      // __dirname + '/src/client/app.js'
     ],
     module: {
       rules: [
