@@ -38,8 +38,8 @@ class ListProduct extends Component {
   }
 }
 
-function mapStateToProps({ product: { user } }) {
-  return { userProduct: user };
+function mapStateToProps({ product }) {
+  return { userProduct: product };
 }
 
 export default connect(

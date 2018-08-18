@@ -7,6 +7,8 @@ export const ACCOUNT_ERROR = 'account_error';
 export const REGISTER_PRODUCT = 'register_product';
 export const USER_PRODUCTS = 'user_products';
 export const ALL_PRODUCTS = 'all_products';
+export const UPDATE_PRODUCT = 'update_product';
+
 
 export const getCurrentUser = () => async dispatch => {
   try {
@@ -21,13 +23,22 @@ export const getCurrentUser = () => async dispatch => {
 };
 
 export const handleToken = token => async dispatch => {
-  console.log(`token: `,token)
-  // const res = await axios.post('/api/stripe', token);
-  // console.log(res);
-  dispatch({
-    type: CURRENT_USER,
-    payload: res.data
-  });
+  try {
+    console.log('token', token);
+    const res = await axios.post('/api/stripe', token);
+    // // console.log(res);
+    if(res.error){
+      console.log('unable to purchase');
+    }
+    dispatch({
+      type: UPDATE_PRODUCT,
+      payload: res.data,
+      newQuantity: res.data.quantity,
+      id: res.data._id
+    });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const handleSignInFormSubmit = (form, history) => async dispatch => {
@@ -96,7 +107,7 @@ export const getUserProducts = () => async dispatch => {
     dispatch({
       type: USER_PRODUCTS,
       payload: res.data
-    })
+    });
   } catch (err) {
     console.error(err);
   }
@@ -127,27 +138,26 @@ export const createProduct = (formValues, file, callback) => async dispatch => {
   }
 };
 
-export const getAllProducts = () => async dispatch =>{
-  try{
+export const getAllProducts = () => async dispatch => {
+  try {
     const res = await axios.get('/api/getProducts');
     dispatch({
       type: ALL_PRODUCTS,
       payload: res.data
-    })
-  }catch(err){
+    });
+  } catch (err) {
     console.error(err);
   }
-}
+};
 
-
-export const editProduct = (data) => async dispatch =>{
-  try{
+export const editProduct = data => async dispatch => {
+  try {
     // await axios.post()
-  }catch(err){
+  } catch (err) {
     console.error(err);
   }
 
   // dispatch({
 
   // })
-}
+};

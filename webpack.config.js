@@ -70,6 +70,14 @@ module.exports = () => {
     //   },
     //   mode: 'production',
     mode: 'development',
-    plugins: [HTMLWebpackPluginConfig, new webpack.DefinePlugin(envKeys)]
+    plugins: [HTMLWebpackPluginConfig, new webpack.DefinePlugin(envKeys), 
+    //   new webpack.optimize.UglifyJsPlugin({
+    //   comments: false,
+    //   compress:{
+    //     warnings: false,
+    //     drop_console: true
+    //   }
+    // })
+  ]
   };
 };

@@ -66,16 +66,23 @@ module.exports = app => {
 
   app.post('/api/stripe', requireLogin, async (req, res) => {
     const body = req.body;
-    const charge = await stripe.charges.create({
-      amount: 10,
-      currency: 'usd',
-      source: req.body.id,
-      description: 'Charge for 5 tokens'
-    });
-    req.user.credits += 5;
-    const user = await req.user.save();
 
-    res.send(user);
+    try {
+      const updatedProduct = await Product.findByIdAndUpdateQuantity(
+        body.productId,
+        body.purchaseQuantity
+      );
+      console.log(updatedProduct);
+      const charge = await stripe.charges.create({
+        amount: body.price * body.purchaseQuantity,
+        currency: 'usd',
+        source: req.body.id,
+        description: `jay's store - ${body.description}`
+      });
+      res.send(updatedProduct);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   });
 
   app.get('/api/getProducts', async (req, res) => {

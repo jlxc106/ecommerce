@@ -5,6 +5,7 @@ import { Col, Card, Row, Button } from 'react-materialize';
 
 import * as actions from '../actions';
 import Payments from './Payments';
+import ProductCard from './ProductCard';
 
 class Home extends Component {
   constructor(props) {
@@ -15,13 +16,6 @@ class Home extends Component {
     this.props.getAllProducts();
   }
 
-  //   renderAdminLink() {
-  //     if (this.props.auth && this.props.auth.isAdmin) {
-  //       return <Link to="admin">GO TO ADMIN PANEL</Link>;
-  //     }
-  //     return null;
-  //   }
-
   renderProductList() {
     const { allProducts } = this.props;
     if (allProducts && allProducts.length > 0) {
@@ -29,27 +23,7 @@ class Home extends Component {
         let color = ['teal', 'red darken-1'];
         const { name, description, price, quantity, imageUrl } = product;
         console.log(product);
-        return (
-          <Card
-            onClick={() => console.log(1)}
-            key={index}
-            product={product}
-            className="border-teal"
-            textClassName="black-text"
-            title={name}
-            actions={[
-              <Link
-                key={index}
-                to="/product_page"
-              >{`${name} product page`}</Link>
-            ]}
-          >
-            {description}
-            <div className='contain-payment'>
-              <Payments product={product} />
-            </div>
-          </Card>
-        );
+        return <ProductCard key={index} index={index} product={product} />;
       });
     }
     return <div>Loading products...</div>;
@@ -59,6 +33,9 @@ class Home extends Component {
     console.log(this.props.auth);
     return (
       <div className="home-div div-horizontal-margin">
+        <h4 className="text-red">
+          The following list is an example listing, not for sale
+        </h4>
         <Row>
           <Col offset="l1 xl1 m1" l={10} xl={10} m={10} s={12}>
             {this.renderProductList()}
@@ -71,7 +48,7 @@ class Home extends Component {
 }
 
 function mapStateToProps(state) {
-  return { auth: state.auth, allProducts: state.product.entire };
+  return { auth: state.auth, allProducts: state.product };
 }
 
 export default connect(

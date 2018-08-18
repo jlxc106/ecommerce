@@ -1,17 +1,27 @@
 import {
   REGISTER_PRODUCT,
   USER_PRODUCTS,
-  ALL_PRODUCTS
+  ALL_PRODUCTS,
+  UPDATE_PRODUCT
 } from '../actions/index';
 
-export default (state = { user: [], entire: [], query: [] }, action) => {
+import { updateProductQuantity } from '../helpers/updateProduct';
+
+export default (state = [], action) => {
   switch (action.type) {
     case REGISTER_PRODUCT:
-      return { ...state, user: [...state.user, action.payload] };
+      return [...state, action.payload];
     case USER_PRODUCTS:
-      return { ...state, user: action.payload };
+      return action.payload;
     case ALL_PRODUCTS:
-      return {...state, entire: action.payload };
+      console.log(state.entire);
+      return action.payload;
+    case UPDATE_PRODUCT:
+      console.log('new quantity', action.newQuantity);
+      console.log('id', action.id);
+      console.log('state', state);
+
+      return updateProductQuantity(action.newQuantity, action.id, state);
     default:
       return state;
   }

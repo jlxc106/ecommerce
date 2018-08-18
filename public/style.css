@@ -22,10 +22,14 @@
 }
 
 .text-red {
-  color: red;
+  color: red !important;
 }
 
-.border-teal{
+.hide-default{
+  display: none;
+}
+
+.border-teal {
   border: 1px solid teal;
 }
 
@@ -47,8 +51,22 @@
   opacity: 0;
 }
 
-.contain-payment{
-  text-align:right;
+.contain-payment {
+  text-align: right;
+}
+.select-qty {
+  display: inline-block;
+  width: inherit;
+}
+.form-qty {
+  bottom: 5px;
+  position: relative;
+}
+
+.img-product-card {
+  max-height: 160px;
+  display: block;
+  max-width: 160px;
 }
 
 /* .product-modal{
@@ -77,12 +95,12 @@
   max-width: 200px;
 }
 
-.collapsible-header{
+.collapsible-header {
   font-weight: bolder;
   font-size: 140%;
 }
 
-.button-edit-collapsible{
+.button-edit-collapsible {
   float: right;
   z-index: 0;
 }
@@ -93,7 +111,7 @@
   }
 }
 
-.collapsible-body{
+.collapsible-body {
   font-weight: bold;
 }
 

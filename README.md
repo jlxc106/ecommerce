@@ -21,6 +21,13 @@ Customizable E-commerce app that relies on Stripe API to safely handle user paym
 
 ### Change Log: 
 
+8/17/18:
+ * Update stock in DB
+ * Upgrade ProductCard Component
+ * Implemented Checks to prevent selling items not in inventory
+ * Update Product redux state
+ * Set up supporting API routes & Payment model methods
+
 8/16/18:
  * Implement File Upload using S3
  * Set up API & Front End view for user's listed items
