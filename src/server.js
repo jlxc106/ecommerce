@@ -32,7 +32,7 @@ mongoose.connect(
 const app = express();
 
 // app.use(cors());
-app.user(sslRedirect());
+app.use(sslRedirect());
 app.set('trust proxy', 1);
 app.use(bodyParser.json());
 app.use(
