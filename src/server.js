@@ -33,13 +33,14 @@ const app = express();
 
 // app.use(cors());
 app.use(sslRedirect());
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 app.use(bodyParser.json());
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: [config.cookieKey],
-    httpOnly: false,
+    secret: config.cookieSecret,
+    // httpOnly: false,
     secure: false
   })
 );
