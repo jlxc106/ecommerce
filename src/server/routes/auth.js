@@ -3,7 +3,7 @@ const passport = require('passport');
 
 module.exports = app => {
   app.get('/auth/currentUser', (req, res) => {
-    console.log('user: ', req);
+    console.log('user: ', req.user);
     res.send(req.user);
   });
 

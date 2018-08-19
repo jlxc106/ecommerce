@@ -9,71 +9,71 @@ var HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   inject: 'body'
 });
 
-module.exports = {
-  // const env = dotenv.config().parsed;
-  // const envKeys = Object.keys(env).reduce((prev, next) => {
-  //   prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  //   return prev;
-  // }, {});
-  // return {
-  entry: [
-    //dev
-    // 'webpack-dev-server/client?http://localhost:8080',
-    path.resolve(__dirname, 'src/client/app.js')
-    // __dirname + '/src/client/app.js'
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: [/node_modules/, /server/],
-        loader: 'babel-loader'
-      },
-      {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader'
+module.exports = () => {
+  const env = dotenv.config().parsed;
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
+  return {
+    entry: [
+      //dev
+      // 'webpack-dev-server/client?http://localhost:8080',
+      path.resolve(__dirname, 'src/client/app.js')
+      // __dirname + '/src/client/app.js'
+    ],
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: [/node_modules/, /server/],
+          loader: 'babel-loader'
+        },
+        {
+          test: /\.css$/,
+          loader: 'style-loader!css-loader'
+        }
+      ]
+    },
+    output: {
+      //dev
+      // filename: 'bundle.js',
+      filename: 'bundle.min.js',
+      path: path.resolve(__dirname, 'public'),
+      publicPath: '/'
+    },
+    devServer: {
+      hot: true,
+      historyApiFallback: true,
+      proxy: {
+        '/auth': 'http://localhost:3000',
+        '/api': 'http://localhost:3000'
       }
+      // proxy: {
+      //   '/socket.io': {
+      //     target: 'http://localhost:3000',
+      //     ws: true
+      //     // secure: false
+      //   }
+      // }
+    },
+    devtool: 'inline-source-map',
+    watchOptions: {
+      ignored: /node_modules/
+    },
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new UglifyJsPlugin({
+          include: /\.min\.js$/
+        })
+      ]
+    },
+    mode: 'production',
+    // mode: 'development',
+    plugins: [
+      HTMLWebpackPluginConfig
+      , new webpack.DefinePlugin(envKeys)
     ]
-  },
-  output: {
-    //dev
-    // filename: 'bundle.js',
-    filename: 'bundle.min.js',
-    path: path.resolve(__dirname, 'public'),
-    publicPath: '/'
-  },
-  devServer: {
-    hot: true,
-    historyApiFallback: true,
-    proxy: {
-      '/auth': 'http://localhost:3000',
-      '/api': 'http://localhost:3000'
-    }
-    // proxy: {
-    //   '/socket.io': {
-    //     target: 'http://localhost:3000',
-    //     ws: true
-    //     // secure: false
-    //   }
-    // }
-  },
-  devtool: 'inline-source-map',
-  watchOptions: {
-    ignored: /node_modules/
-  },
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new UglifyJsPlugin({
-        include: /\.min\.js$/
-      })
-    ]
-  },
-  mode: 'production',
-  // mode: 'development',
-  plugins: [
-    HTMLWebpackPluginConfig
-    // , new webpack.DefinePlugin(envKeys)
-  ]
+  };
 };
-// };
