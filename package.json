@@ -4,7 +4,7 @@
   "description": "ecommerce app",
   "main": "index.js",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "export NODE_ENV=production && node src/server.js",
     "build": "webpack --config webpack.config.js --progress --colors",
     "bundle": "webpack --display-error-details",
     "dev:server": "nodemon src/server.js",
