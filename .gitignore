@@ -2,3 +2,5 @@ node_modules/
 *lock.json
 config
 .env
+*bundle*
+bs.js

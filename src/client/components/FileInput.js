@@ -7,7 +7,6 @@ export default class FieldFileInput  extends Component{
   }
 
   onChange(e) {
-    // const { input: { onChange } } = this.props
     this.props.onChange(e.target.files[0])
   }
 
@@ -20,8 +19,6 @@ export default class FieldFileInput  extends Component{
        <input
        type="file"
        accept="image/*"
-        // type='file'
-        // accept='.jpg, .png, .jpeg'
         onChange={this.onChange}
        />
      </div>

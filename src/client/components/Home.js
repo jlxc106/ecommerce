@@ -22,7 +22,6 @@ class Home extends Component {
       return allProducts.map((product, index) => {
         let color = ['teal', 'red darken-1'];
         const { name, description, price, quantity, imageUrl } = product;
-        console.log(product);
         return <ProductCard key={index} index={index} product={product} />;
       });
     }
@@ -30,7 +29,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.auth);
     return (
       <div className="home-div div-horizontal-margin">
         <h4 className="text-red">

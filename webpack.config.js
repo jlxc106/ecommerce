@@ -18,8 +18,8 @@ module.exports = () => {
   return {
     entry: [
       //dev
-      // 'webpack-dev-server/client?http://localhost:8080',
-      __dirname + "/src/server.js",
+      'webpack-dev-server/client?http://localhost:8080',
+      path.resolve(__dirname, 'src/client/app.js')
       // __dirname + '/src/client/app.js'
     ],
     module: {
@@ -47,38 +47,26 @@ module.exports = () => {
       historyApiFallback: true,
       proxy: {
         '/auth': 'http://localhost:3000',
-        '/api':'http://localhost:3000'
+        '/api': 'http://localhost:3000'
       }
-      // proxy: {
-      //   '/socket.io': {
-      //     target: 'http://localhost:3000',
-      //     ws: true
-      //     // secure: false
-      //   }
-      // }
     },
     devtool: 'inline-source-map',
     watchOptions: {
       ignored: /node_modules/
     },
-    //   optimization:{
-    //     minimize: true,
-    //     minimizer:[
-    //       new UglifyJsPlugin({
-    //         include: /\.min\.js$/
-    //       })
-    //     ]
-    //   },
-    //   mode: 'production',
+    optimization: {
+      minimize: true,
+      minimizer: [
+        new UglifyJsPlugin({
+          include: /\.min\.js$/
+        })
+      ]
+    },
+    // mode: 'production',
     mode: 'development',
-    plugins: [HTMLWebpackPluginConfig, new webpack.DefinePlugin(envKeys), 
-    //   new webpack.optimize.UglifyJsPlugin({
-    //   comments: false,
-    //   compress:{
-    //     warnings: false,
-    //     drop_console: true
-    //   }
-    // })
-  ]
+    plugins: [
+      HTMLWebpackPluginConfig
+      , new webpack.DefinePlugin(envKeys)
+    ]
   };
 };

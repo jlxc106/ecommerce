@@ -1,17 +1,19 @@
 {
   "name": "ecommerce",
   "version": "1.0.0",
-  "description": "",
+  "description": "ecommerce app",
   "main": "index.js",
   "scripts": {
-    "start":"node src/server.js",
-    "build":"",
+    "start": "export NODE_ENV=production && node src/server.js",
+    "build": "webpack --config webpack.config.js --progress --colors",
+    "bundle": "webpack --display-error-details",
     "dev:server": "nodemon src/server.js",
     "dev:client": "webpack-dev-server --hot",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm run dev:server\"  \"npm run dev:client\""
+    "dev": "concurrently \"npm run dev:server\"  \"npm run dev:client\"",
+    "postinstall": "npm run build"
   },
-  "author": "",
+  "author": "Jay Lim",
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.295.0",
@@ -20,8 +22,10 @@
     "body-parser": "^1.18.3",
     "concurrently": "^3.6.1",
     "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.4",
     "email-validator": "^2.0.4",
     "express": "^4.16.3",
+    "heroku-ssl-redirect": "0.0.4",
     "history": "^4.7.2",
     "lodash": "^4.17.10",
     "mongodb": "^3.1.1",
@@ -37,6 +41,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-stripe-checkout": "^2.6.3",
+    "react-stripe-elements": "^2.0.1",
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0",

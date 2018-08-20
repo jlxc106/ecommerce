@@ -6,13 +6,14 @@ const uuid = require('uuid/v1');
 const requireLogin = require('../middleware/requireLogin');
 const requireAdmin = require('../middleware/requireAdmin');
 
+const config = require('../config/config');
 
-let config;
-if(process.env.NODE_ENV !== 'production'){
-  config = require('../config/config');
-}else{
-  config = process.env;
-}
+// let config;
+// if(process.env.NODE_ENV !== 'production'){
+//   config = require('../config/config');
+// }else{
+//   config = process.env;
+// }
 const stripe = require('stripe')(config.stripeSecretKey);
 
 const Product = mongoose.model('Product');
@@ -78,7 +79,6 @@ module.exports = app => {
         body.productId,
         body.purchaseQuantity
       );
-      console.log(updatedProduct);
       const charge = await stripe.charges.create({
         amount: body.price * body.purchaseQuantity,
         currency: 'usd',
