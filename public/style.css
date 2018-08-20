@@ -130,3 +130,17 @@
     margin: 10px;
   }
 }
+
+.carousel-item{
+  /* width: 100% !important; */
+  width: fit-content;
+  height: fit-content;
+}
+
+.center{
+  margin: auto;
+}
+
+.product-error-msg{
+  margin-top: 100px;
+}

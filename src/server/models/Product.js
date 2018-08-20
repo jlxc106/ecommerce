@@ -15,10 +15,20 @@ const productSchema = new Schema({
     default: ''
   },
   quantity: Number,
-  imageUrl: {
+  imageUrl: [{
     type: String,
     default: ''
-  }
+  }],
+  reviews:[{
+    user:{
+      _id: {type: Schema.Types.ObjectId, ref: 'User'},
+      name: String
+    },
+    comment: String,
+    timeStamp: Date,
+    rating: Number
+    }
+  ]
 });
 
 productSchema.statics.findByIdAndUpdateQuantity = async function(_id, deltaQuantity){
@@ -28,7 +38,7 @@ productSchema.statics.findByIdAndUpdateQuantity = async function(_id, deltaQuant
             if(updatedDoc.quantity < 0 ){
                 updatedDoc.quantity = updatedDoc.quantity + deltaQuantity;
                 await updatedDoc.save();
-                return reject({error: 'insufficient quantity in stock'});
+                return reject({message: 'insufficient quantity in stock'});
             }
             resolve(updatedDoc);
         }catch(err){

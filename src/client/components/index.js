@@ -35,7 +35,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/signIn" component={SignIn} />
             <Route path="/signUp" component={SignUp} />
-            <Route path="/elements" component={TestElement} />
+            <UserRoute path="/elements" auth={this.props.auth} component={TestElement} />
             <UserRoute
               path="/my_account"
               auth={this.props.auth}
@@ -46,7 +46,7 @@ class App extends Component {
               auth={this.props.auth}
               component={AdminPanel}
             />
-            <Route path="/product_page" component={ProductPage} />
+            <Route path="/product_page/:product_id" component={ProductPage} />
           </Switch>
         </div>
       </Router>
