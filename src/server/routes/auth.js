@@ -3,15 +3,12 @@ const passport = require('passport');
 
 module.exports = app => {
   app.get('/auth/currentUser', (req, res) => {
-    console.log('user obj: ', req.user);
+    console.log('user: ', req.user);
     res.send(req.user);
   });
 
   app.post('/auth/signIn', (req, res, next) => {
     passport.authenticate('local-signin', (err, user, info) => {
-      console.log('err', err);
-      console.log('user', user);
-      console.log('info', info);
       if (err) {
         return res.status(400).send(err);
       }
@@ -31,9 +28,6 @@ module.exports = app => {
 
   app.post('/auth/signUp', (req, res, next) => {
     passport.authenticate('local-signup', (err, user, info) => {
-      console.log('err', err);
-      console.log('user', user);
-      console.log('info', info);
       if (err) {
         return res.status(400).send(err);
       }

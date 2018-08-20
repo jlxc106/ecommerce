@@ -5,7 +5,10 @@ class ProductPage extends Component {
     super(props);
   }
 
+
+
   render() {
+    console.log(this.props.location.state);
     return (
       <div className="home-div div-horizontal-margin">
         product page here oink
