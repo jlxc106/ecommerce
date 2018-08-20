@@ -14,13 +14,8 @@ export default (state = [], action) => {
     case USER_PRODUCTS:
       return action.payload;
     case ALL_PRODUCTS:
-      console.log(state.entire);
       return action.payload;
     case UPDATE_PRODUCT:
-      console.log('new quantity', action.newQuantity);
-      console.log('id', action.id);
-      console.log('state', state);
-
       return updateProductQuantity(action.newQuantity, action.id, state);
     default:
       return state;

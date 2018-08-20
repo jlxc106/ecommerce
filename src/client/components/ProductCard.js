@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Card, Col, Row } from 'react-materialize';
+import { Card, Button, Col, Row } from 'react-materialize';
 import { Link } from 'react-router-dom';
 
-import Payments from './Payments';
+// import Payments from './Payments';
 
 class ProductCard extends Component {
   constructor(props) {
@@ -62,10 +62,10 @@ class ProductCard extends Component {
     const { price } = this.props.product;
     const cumulativePrice = price * this.state.purchaseQuantity;
     if (cumulativePrice < 100) return `0.${cumulativePrice}`;
-    else{
-        let cents = parseInt(cumulativePrice % 100) || '00';
-        let dollars = parseInt(cumulativePrice / 100);
-        return `${dollars}.${cents}`
+    else {
+      let cents = parseInt(cumulativePrice % 100) || '00';
+      let dollars = parseInt(cumulativePrice / 100);
+      return `${dollars}.${cents}`;
     }
   }
 
@@ -102,7 +102,7 @@ class ProductCard extends Component {
             <div className="contain-payment">
               <p className={`text-red ${hideSoldOut}`}>SOLD OUT</p>
               <p>${this.renderPrice()}</p>
-              <form className="form-qty">
+              {/* <form className="form-qty">
                 qty:{' '}
                 <select
                   className="select-qty"
@@ -112,11 +112,22 @@ class ProductCard extends Component {
                 >
                   {this.renderList()}
                 </select>
-              </form>
-              <Payments
+              </form> */}
+              <Link to={{
+                pathname: "/product_page", 
+                state: {
+                  product 
+                }}}>
+                <Button
+                  className="blue btn-margin"
+                >
+                  Product Page
+                </Button>
+              </Link>
+              {/* <Payments
                 purchaseQuantity={this.state.purchaseQuantity}
                 product={product}
-              />
+              /> */}
               <p>Total Quantity Remaining: {quantity}</p>
             </div>
           </Col>

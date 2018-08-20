@@ -11,7 +11,6 @@ class ListProduct extends Component {
   }
 
   renderProductList() {
-    console.log(this.props.userProduct);
     if (this.props.userProduct.length > 0) {
       return this.props.userProduct.map((item, index) => {
         return (

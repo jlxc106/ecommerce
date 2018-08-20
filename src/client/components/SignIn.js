@@ -16,7 +16,6 @@ class SignIn extends Component {
   handleFormSubmit(e) {
     e.preventDefault();
     if (!this.props.form.signIn.syncErrors) {
-      console.log('submitting sign in form');
       const { email, password } = this.props.form.signIn.values;
       this.props.handleSignInFormSubmit(
         {
@@ -39,7 +38,6 @@ class SignIn extends Component {
   }
 
   render() {
-    console.log(this.props.form.signIn.syncErrors);
     return (
       <div className="div-horizontal-margin">
         <h1>Sign In</h1>

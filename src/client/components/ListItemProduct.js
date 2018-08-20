@@ -47,7 +47,6 @@ class ListItemProduct extends Component {
   }
 
   render() {
-    console.log(this.props.item);
     return (
       <CollapsibleItem header={this.props.item.name} onSelect={() => {}}>
         {this.renderProductInfo()}

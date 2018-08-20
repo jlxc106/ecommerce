@@ -54,6 +54,4 @@ require('./server/routes/auth')(app);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-// console.log(path.join(__dirname,'../public'));
-
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));

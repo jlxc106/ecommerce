@@ -46,15 +46,10 @@ class SignUp extends Component {
     this.setState(
       {
         revealPassword: toggledState
-      },
-      () => console.log('toggled')
-    );
+      });
   }
 
   render() {
-    // const { handleFormSubmit } = this.props;
-    console.log(this.props.form);
-
     return (
       <div className="div-horizontal-margin">
         <h1>Sign Up</h1>
@@ -111,7 +106,6 @@ function mapStateToProps({ form, error }) {
 
 const validate = values => {
   const errors = {};
-  console.log(values);
   if (!values.name) {
     errors.name = 'Required';
   } else if (values.name.length < 3) {

@@ -5,6 +5,7 @@ import App from './components/index';
 import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
 import thunk from 'redux-thunk';
+import { StripeProvider } from 'react-stripe-elements';
 
 // require('../../public/style.css');
 // import "./css/style.css";
@@ -18,7 +19,9 @@ const store = createStoreWithMiddleware(reducers);
 
 ReactDOM.render(
   <Provider store={store}>
+    <StripeProvider apiKey={process.env.REACT_APP_STRIPE_KEY}>
       <App />
+    </StripeProvider>
   </Provider>,
   document.getElementById('app')
 );

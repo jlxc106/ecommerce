@@ -25,17 +25,7 @@ class AdminPanel extends Component {
     this.props.getUserProducts();
   }
 
-  //   enableEdit() {
-  //     this.setState(
-  //       {
-  //         editMode: true
-  //       },
-  //       () => console.log(this.state.editMode)
-  //     );
-  //   }
-
   openProductModal() {
-    //trigger a modal
     this.setState({
       openModal: true
     });
@@ -91,8 +81,6 @@ class AdminPanel extends Component {
 
   render() {
     const { product } = this.props;
-    console.log(product);
-    console.log(this.state);
     return (
       <div className="div-horizontal-margin" id="admin-div">
         <h1>Admin Panel</h1>

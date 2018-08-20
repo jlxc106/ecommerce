@@ -79,7 +79,6 @@ module.exports = app => {
         body.productId,
         body.purchaseQuantity
       );
-      console.log(updatedProduct);
       const charge = await stripe.charges.create({
         amount: body.price * body.purchaseQuantity,
         currency: 'usd',

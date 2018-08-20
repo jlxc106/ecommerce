@@ -19,7 +19,6 @@ export const renderField = ({
   type,
   meta: { touched, error }
 }) => {
-  // console.log(input);
   const hasError = touched && error;
   return (
     <div>
