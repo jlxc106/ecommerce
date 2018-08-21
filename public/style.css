@@ -101,6 +101,14 @@
   margin: 20px;
 }
 
+.nav-bar{
+  background-color: #08154A;
+}
+
+.text-center{
+  text-align:center;
+}
+
 .image-product-collapsible {
   max-height: 200px;
   max-width: 200px;

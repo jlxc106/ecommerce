@@ -6,13 +6,6 @@ const validator = require('email-validator');
 
 const config = require('../config/config');
 
-// let config;
-// if(process.env.NODE_ENV !== 'production'){
-//   config = require('../config/config');
-// }else{
-//   config = process.env;
-// }
-
 const User = mongoose.model('User');
 
 passport.serializeUser((user, done) => {

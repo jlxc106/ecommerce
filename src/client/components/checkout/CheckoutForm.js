@@ -59,7 +59,7 @@ class CheckoutForm extends Component {
   }
   successfulPurchaseCallback(){
     this.props.history.push('/');
-    window.Materialize.toast('Thank you for your purchase.');
+    window.Materialize.toast('Thank you for your purchase.', 1000);
   }
   //auto fill state field
 

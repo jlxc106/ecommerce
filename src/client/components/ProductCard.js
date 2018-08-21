@@ -120,10 +120,20 @@ class ProductCard extends Component {
         <Row>
           <Col s={9} m={9} l={9} xl={9}>
             {imageUrl ? (
-              <img
-                className="img-product-card"
-                src={`${process.env.AWS_S3_BASE_URL}${imageUrl}`}
-              />
+              <Link
+                key={index}
+                to={{
+                  pathname: `/product_page/${_id}`,
+                  state: {
+                    product
+                  }
+                }}
+              >
+                <img
+                  className="img-product-card"
+                  src={`${process.env.AWS_S3_BASE_URL}${imageUrl}`}
+                />
+              </Link>
             ) : null}
             <p>{description}</p>
           </Col>

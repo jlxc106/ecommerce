@@ -31,7 +31,7 @@ class Home extends Component {
   render() {
     return (
       <div className="home-div div-horizontal-margin">
-        <h4 className="text-red">
+        <h4 className="text-red text-center">
           The following list is an example listing, not for sale
         </h4>
         <Row>

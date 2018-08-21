@@ -18,7 +18,7 @@ module.exports = () => {
   return {
     entry: [
       //dev
-      // 'webpack-dev-server/client?http://localhost:8080',
+      'webpack-dev-server/client?http://localhost:8080',
       path.resolve(__dirname, 'src/client/app.js')
     ],
     module: {
@@ -36,8 +36,8 @@ module.exports = () => {
     },
     output: {
       //dev
-      // filename: 'bundle.js',
-      filename: 'bundle.min.js',
+      filename: 'bundle.js',
+    //   filename: 'bundle.min.js',
       path: path.resolve(__dirname, 'public'),
       publicPath: '/'
     },
@@ -61,8 +61,8 @@ module.exports = () => {
         })
       ]
     },
-    mode: 'production',
-    // mode: 'development',
+    // mode: 'production',
+    mode: 'development',
     plugins: [
       HTMLWebpackPluginConfig
       , new webpack.DefinePlugin(envKeys)

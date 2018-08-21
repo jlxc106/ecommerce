@@ -13,7 +13,7 @@ class Header extends Component {
       case null:
       case false: //user is not logged in
         return (
-          <Navbar brand="Jay's Store" right fixed>
+          <Navbar className="nav-bar" brand="Jay's Store" right fixed>
             <NavItem href="/auth/google">Sign in with Google</NavItem>
             <li>
               <Link to="/signIn">Sign In</Link>
@@ -23,7 +23,7 @@ class Header extends Component {
       default:
         // user is logged in
         return (
-          <Navbar brand="Jay's Store" right fixed>
+          <Navbar className="nav-bar" brand="Jay's Store" right fixed>
             <li className="li-stripe-button">
               {/* <Payments /> */}
             </li>

@@ -78,11 +78,19 @@ class ProductPage extends Component {
     this.setState({ purchaseQuantity: e.target.value });
   }
 
-  handleCheckout(e){
-    const {price} = this.props.location.state.product;
+  handleCheckout(e) {
+    const { quantity, price } = this.props.location.state.product;
+    console.log(this.props.location.state.product);
+    if (quantity === 0) {
+      window.Materialize.toast('Out of Inventory', 1000);
+      return;
+    }
 
-    if(price * this.state.purchaseQuantity < 50){
-      window.Materialize.toast('Minimum value for transaction is 50 cents');
+    if (price * this.state.purchaseQuantity < 50) {
+      window.Materialize.toast(
+        'Minimum value for transaction is 50 cents',
+        1000
+      );
       return;
     }
     this.props.history.push({
@@ -91,7 +99,7 @@ class ProductPage extends Component {
         product: this.props.location.state.product,
         purchaseQuantity: this.state.purchaseQuantity
       }
-    })
+    });
   }
 
   render() {
@@ -116,6 +124,7 @@ class ProductPage extends Component {
     }
     const { imageUrl, name, description, price, quantity, seller } = product;
     const sellerName = seller.name;
+    console.log(product);
     return (
       <div className="div-horizontal-margin">
         <div className="">
@@ -148,6 +157,7 @@ class ProductPage extends Component {
                   >
                     {this.renderQuantityList(quantity)}
                   </select>
+                  <p>{quantity} Items in stock</p>
                 </form>
                 {/* <Link
                   to={{
@@ -158,15 +168,15 @@ class ProductPage extends Component {
                     }
                   }}
                 > */}
-                  <Button
-                    onClick={e=>this.handleCheckout(e)}
-                    disabled={this.userIsLoggedIn()}
-                    className={`blue ${
-                      this.userIsLoggedIn() ? 'hide-default' : ''
-                    }`}
-                  >
-                    Purchase
-                  </Button>
+                <Button
+                  onClick={e => this.handleCheckout(e)}
+                  disabled={this.userIsLoggedIn() || quantity === 0}
+                  className={`blue ${
+                    this.userIsLoggedIn() ? 'hide-default' : ''
+                  }`}
+                >
+                  Purchase
+                </Button>
                 {/* </Link> */}
                 <Link to="/signIn">
                   <Button

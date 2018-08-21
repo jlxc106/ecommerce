@@ -5,15 +5,8 @@ const uuid = require('uuid/v1');
 
 const requireLogin = require('../middleware/requireLogin');
 const requireAdmin = require('../middleware/requireAdmin');
-
 const config = require('../config/config');
 
-// let config;
-// if(process.env.NODE_ENV !== 'production'){
-//   config = require('../config/config');
-// }else{
-//   config = process.env;
-// }
 const stripe = require('stripe')(config.stripeSecretKey);
 
 const Product = mongoose.model('Product');
@@ -52,7 +45,6 @@ module.exports = app => {
   });
 
   app.post('/api/createProduct', requireAdmin, async (req, res) => {
-    // const user = req.user;
     try {
       const { id, email, name } = req.user;
       const product = new Product({
@@ -95,7 +87,6 @@ module.exports = app => {
   app.get('/api/getProducts', async (req, res) => {
     try {
       const listOfProducts = await Product.find({}, null, { batchSize: 20 });
-      // return listOfProducts;
       res.send(listOfProducts);
     } catch (err) {
       res.status(400).send(err);

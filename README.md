@@ -19,12 +19,16 @@ Customizable E-commerce app that relies on Stripe API to safely handle user paym
 * Allow multiple images to be uploaded per product listing
 * Set up Shopping Cart
 * Set up "remember user" feature for checkout
+* Edit product feature
 
 ## Author: Jay Lim
 
 ### Change Log: 
 
-8/19/18:
+8/21/18:
+ * 
+
+8/19/18 & 8/20/18:
  * Product Page
  * Customized Card Components with Links in title
  * Finished react-stripe-elements checkout
