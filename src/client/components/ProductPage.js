@@ -103,7 +103,7 @@ class ProductPage extends Component {
   }
 
   render() {
-    console.log(this.props.location.state);
+    // console.log(this.props.location.state);
     if (this.props.error && this.props.error.type === PRODUCT_ERROR) {
       return (
         <div className="div-horizontal-margin">
@@ -132,7 +132,7 @@ class ProductPage extends Component {
             <Col s={12} m={12} l={5} xl={5} className="product-page-left">
               <Carousel
                 className="img-carousel"
-                images={[`${process.env.AWS_S3_BASE_URL}${imageUrl}`]}
+                images={[`${process.env.AWS_S3_BASE_URL}${ typeof imageUrl === String ? imageUrl: imageUrl[0]}`]}
                 options={{
                   noWrap: true
                 }}
