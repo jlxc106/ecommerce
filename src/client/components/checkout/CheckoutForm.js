@@ -11,7 +11,9 @@ import { renderField } from '../../helpers/renderField';
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-    this.successfulPurchaseCallback = this.successfulPurchaseCallback.bind(this)
+    this.successfulPurchaseCallback = this.successfulPurchaseCallback.bind(
+      this
+    );
   }
 
   async handleSubmit(e) {
@@ -22,7 +24,9 @@ class CheckoutForm extends Component {
       const purchaseQuantity = this.props.purchaseQuantity;
       const { description, name, price, quantity, _id } = this.props.product;
       const { customerName } = this.props.form.checkout.values;
-      let response = await this.props.stripe.createToken({ name: customerName });
+      let response = await this.props.stripe.createToken({
+        name: customerName
+      });
       let token = response.token;
       // console.log(`token `, token);
       token = {
@@ -57,7 +61,7 @@ class CheckoutForm extends Component {
     //     console.log(res);
     //   });
   }
-  successfulPurchaseCallback(){
+  successfulPurchaseCallback() {
     this.props.history.push('/');
     window.Materialize.toast('Thank you for your purchase.', 1000);
   }
@@ -67,52 +71,33 @@ class CheckoutForm extends Component {
     // console.log(this.props);
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
-        <div>
-          <label className="checkout-label">
-            Personal Info
-            <Field
-              type="text"
-              name="name"
-              label="Name"
-              component={renderField}
-            />
-          </label>
-        </div>
-        <div>
-          <label className="checkout-label">
-            Address details
-            <Field
-              component={renderField}
-              type="text"
-              label="Address"
-              name="address"
-            />
-            <Field
-              component={renderField}
-              type="text"
-              label="City"
-              name="city"
-            />
-            <Field
-              component={renderField}
-              type="text"
-              label="State"
-              name="state"
-            />
-            <Field
-              component={renderField}
-              type="text"
-              label="Country"
-              name="country"
-            />
-            <Field
-              component={renderField}
-              type="number"
-              label="ZIP"
-              name="zip"
-            />
-          </label>
-        </div>
+        <label className="checkout-label">
+          Personal Info
+          <Field type="text" name="name" label="Name" component={renderField} />
+        </label>
+        <label className="checkout-label">
+          Address details
+          <Field
+            component={renderField}
+            type="text"
+            label="Address"
+            name="address"
+          />
+          <Field component={renderField} type="text" label="City" name="city" />
+          <Field
+            component={renderField}
+            type="text"
+            label="State"
+            name="state"
+          />
+          <Field
+            component={renderField}
+            type="text"
+            label="Country"
+            name="country"
+          />
+          <Field component={renderField} type="number" label="ZIP" name="zip" />
+        </label>
         <div>
           {' '}
           <CardSection />
