@@ -38,4 +38,9 @@ require('./server/routes/auth')(app);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.get('/*', (req, res)=>{
+  console.log('oink');
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+})
+
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
