@@ -35,7 +35,7 @@ const app = express();
 
 // app.use(cors());
 // app.use(sslRedirect());
-app.set('trust proxy', 3);
+// app.set('trust proxy', 3);
 app.use(bodyParser.json());
 app.use(
   cookieSession({
