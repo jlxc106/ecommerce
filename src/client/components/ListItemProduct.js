@@ -23,7 +23,7 @@ class ListItemProduct extends Component {
     let imageLink = '';
     const { description, imageUrl, name, price, quantity } = this.props.item;
     if (imageUrl.length > 0) {
-      imageLink = `https://jlxc106-ecommerce-123.s3.us-west-1.amazonaws.com/${imageUrl}`;
+      imageLink = `${process.env.AWS_S3_BASE_URL}${imageUrl}`;
     }
     return (
       <div>
@@ -47,7 +47,6 @@ class ListItemProduct extends Component {
   }
 
   render() {
-    console.log(this.props.item);
     return (
       <CollapsibleItem header={this.props.item.name} onSelect={() => {}}>
         {this.renderProductInfo()}

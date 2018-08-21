@@ -4,11 +4,12 @@ export const CURRENT_USER = 'current_user';
 export const SIGN_IN_ERROR = 'sign_in_error';
 export const SIGN_UP_ERROR = 'sign_up_error';
 export const ACCOUNT_ERROR = 'account_error';
+export const PRODUCT_ERROR = 'product_error';
 export const REGISTER_PRODUCT = 'register_product';
 export const USER_PRODUCTS = 'user_products';
 export const ALL_PRODUCTS = 'all_products';
 export const UPDATE_PRODUCT = 'update_product';
-
+export const GET_PRODUCT = 'get_product'
 
 export const getCurrentUser = () => async dispatch => {
   try {
@@ -22,11 +23,11 @@ export const getCurrentUser = () => async dispatch => {
   }
 };
 
-export const handleToken = token => async dispatch => {
+export const handleToken = (token, callback) => async dispatch => {
   try {
     console.log('token', token);
     const res = await axios.post('/api/stripe', token);
-    // // console.log(res);
+    console.log(res);
     if(res.error){
       console.log('unable to purchase');
     }
@@ -36,6 +37,7 @@ export const handleToken = token => async dispatch => {
       newQuantity: res.data.quantity,
       id: res.data._id
     });
+    callback();
   } catch (err) {
     console.error(err);
   }
@@ -149,6 +151,27 @@ export const getAllProducts = () => async dispatch => {
     console.error(err);
   }
 };
+
+export const getProductById = (id) => async dispatch =>{
+  try{
+    const res = await axios.get('/api/getProductById');
+    console.log(res);
+    if(res.data.message){
+      dispatch({
+        type: PRODUCT_ERROR,
+        payload: res.data
+      })
+    }else{
+      dispatch({
+        type: GET_PRODUCT,
+        payload: res.data
+      });
+    }
+  }
+  catch(err){
+    console.error(err);
+  }
+}
 
 export const editProduct = data => async dispatch => {
   try {

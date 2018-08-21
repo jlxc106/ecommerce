@@ -18,7 +18,7 @@ module.exports = () => {
   return {
     entry: [
       //dev
-      // 'webpack-dev-server/client?http://localhost:8080',
+      'webpack-dev-server/client?http://localhost:8080',
       path.resolve(__dirname, 'src/client/app.js')
       // __dirname + '/src/client/app.js'
     ],
@@ -37,8 +37,8 @@ module.exports = () => {
     },
     output: {
       //dev
-      // filename: 'bundle.js',
-      filename: 'bundle.min.js',
+      filename: 'bundle.js',
+      // filename: 'bundle.min.js',
       path: path.resolve(__dirname, 'public'),
       publicPath: '/'
     },
@@ -49,13 +49,6 @@ module.exports = () => {
         '/auth': 'http://localhost:3000',
         '/api': 'http://localhost:3000'
       }
-      // proxy: {
-      //   '/socket.io': {
-      //     target: 'http://localhost:3000',
-      //     ws: true
-      //     // secure: false
-      //   }
-      // }
     },
     devtool: 'inline-source-map',
     watchOptions: {
@@ -69,8 +62,8 @@ module.exports = () => {
         })
       ]
     },
-    mode: 'production',
-    // mode: 'development',
+    // mode: 'production',
+    mode: 'development',
     plugins: [
       HTMLWebpackPluginConfig
       , new webpack.DefinePlugin(envKeys)

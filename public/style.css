@@ -47,6 +47,11 @@
   transition: opacity 150ms;
 }
 
+.checkout-label{
+  font-weight: bolder;
+  font-size: 1rem;
+}
+
 .ReactModal__Content--before-close {
   opacity: 0;
 }
@@ -67,6 +72,12 @@
   max-height: 160px;
   display: block;
   max-width: 160px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.btn-margin{
+  margin: 20px 0 20px 0;
 }
 
 /* .product-modal{
@@ -123,4 +134,23 @@
   .li-stripe-button {
     margin: 10px;
   }
+}
+
+.carousel-item{
+  /* width: 100% !important; */
+  width: fit-content;
+  height: fit-content;
+}
+
+.center{
+  margin: auto;
+}
+
+.product-error-msg{
+  margin-top: 100px;
+}
+
+.div-vertical-margin{
+  margin-top: 30px;
+  margin-bottom: 30px;
 }

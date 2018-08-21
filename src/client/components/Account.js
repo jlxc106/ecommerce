@@ -18,7 +18,6 @@ class Account extends Component {
   renderUserInfo() {
     if (this.props.auth) {
       const { name, email, isAdmin } = this.props.auth;
-      console.log(isAdmin);
       return (
         <div>
           <p>Name: {name}</p>
@@ -56,7 +55,6 @@ class Account extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="div-horizontal-margin">
         <h3>My Account</h3>
@@ -71,7 +69,7 @@ class Account extends Component {
         <br />
         <span className="red-text">
           *All transactions are configured to go to Jay's bank account. Don't
-          expect a check at your door.
+          expect a check at your door. Site is just a demonstration.
         </span>
       </div>
     );

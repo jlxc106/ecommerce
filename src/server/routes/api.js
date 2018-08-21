@@ -79,7 +79,6 @@ module.exports = app => {
         body.productId,
         body.purchaseQuantity
       );
-      console.log(updatedProduct);
       const charge = await stripe.charges.create({
         amount: body.price * body.purchaseQuantity,
         currency: 'usd',
@@ -88,7 +87,8 @@ module.exports = app => {
       });
       res.send(updatedProduct);
     } catch (err) {
-      res.status(400).send(err);
+      res.send({error: err});
+      // res.status(400).send(err);
     }
   });
 
@@ -99,6 +99,17 @@ module.exports = app => {
       res.send(listOfProducts);
     } catch (err) {
       res.status(400).send(err);
+    }
+  });
+
+  app.get('/api/getProductById', async (req, res) => {
+    try {
+      const id = req.body.id;
+      const getProduct = await Product.findById(id);
+      res.send(getProduct || { message: 'Invalid Product ID' });
+    } catch (err) {
+      res.send({ message: 'Invalid Product ID' });
+      // res.status(400).send(err);
     }
   });
 };
