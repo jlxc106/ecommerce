@@ -75,7 +75,7 @@ module.exports = app => {
         amount: body.price * body.purchaseQuantity,
         currency: 'usd',
         source: req.body.id,
-        description: `jay's store - ${body.description}`
+        description: `${body.description}`
       });
       res.send(updatedProduct);
     } catch (err) {

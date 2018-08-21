@@ -94,7 +94,7 @@ class SignUp extends Component {
           </div>
         </form>
         {this.renderSignUpError()}
-        <Link to="signIn">Already have an account? Sign In Here</Link>
+        <Link to="/signIn">Already have an account? Sign In Here</Link>
       </div>
     );
   }

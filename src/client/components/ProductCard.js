@@ -118,7 +118,7 @@ class ProductCard extends Component {
         ]}
       >
         <Row>
-          <Col s={9} m={9} l={9} xl={9}>
+          <Col className="abc" s={12} m={12} l={9} xl={9}>
             {imageUrl ? (
               <Link
                 key={index}
@@ -137,7 +137,7 @@ class ProductCard extends Component {
             ) : null}
             <p>{description}</p>
           </Col>
-          <Col s={3} m={3} l={3} xl={3}>
+          <Col className="abc" s={12} m={12} l={3} xl={3}>
             <div className="contain-payment">
               <p className={`text-red ${hideSoldOut}`}>SOLD OUT</p>
               <p>${this.renderPrice()}</p>

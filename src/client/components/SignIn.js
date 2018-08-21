@@ -64,7 +64,7 @@ class SignIn extends Component {
         </form>
         {this.renderSignInError()}
         <hr />
-        <Link to="signUp">SIGN UP HERE</Link>
+        <Link to="/signUp">SIGN UP HERE</Link>
       </div>
     );
   }

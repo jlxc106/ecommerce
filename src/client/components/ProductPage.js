@@ -129,7 +129,7 @@ class ProductPage extends Component {
       <div className="div-horizontal-margin">
         <div className="">
           <Row>
-            <Col s={5} m={5} l={5} xl={5} className="product-page-left">
+            <Col s={12} m={12} l={5} xl={5} className="product-page-left">
               <Carousel
                 className="img-carousel"
                 images={[`${process.env.AWS_S3_BASE_URL}${imageUrl}`]}
@@ -138,7 +138,7 @@ class ProductPage extends Component {
                 }}
               />
             </Col>
-            <Col s={7} m={7} l={7} xl={7} className="product-page-right">
+            <Col s={12} m={12} l={7} xl={7} className="product-page-right">
               <div>
                 <h4 className="product-name">{name}</h4>
               </div>
