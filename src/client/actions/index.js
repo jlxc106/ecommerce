@@ -43,7 +43,7 @@ export const handleToken = (token, callback) => async dispatch => {
   }
 };
 
-export const handleSignInFormSubmit = (form, history) => async dispatch => {
+export const handleSignInFormSubmit = (form, history, errorCallback) => async dispatch => {
   try {
     const res = await axios.post('/auth/signIn', form);
     // console.log('post response: ',res);
@@ -58,6 +58,7 @@ export const handleSignInFormSubmit = (form, history) => async dispatch => {
         type: SIGN_IN_ERROR,
         payload: res.data
       });
+      errorCallback(res.data.message);
     }
   } catch (err) {
     console.error(err);

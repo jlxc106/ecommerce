@@ -78,7 +78,7 @@ passport.use(
         if (user.password.length === 0) {
           return done(null, false, {
             message:
-              'No password set for account, sign up to set up password'
+              'No password set for account, sign up to set up password. Make sure to use the same name as it appears on your account page.'
           });
         }
         user.validatePassword(password).then(

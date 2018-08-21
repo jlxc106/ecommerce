@@ -32,7 +32,7 @@ class Header extends Component {
             </NavItem> */}
             {/* <NavItem onClick={(event)=>this.onClickMyAccount(event)}>My Account</NavItem> */}
             <li>
-              <Link to="my_account">My Account</Link>
+              <Link to="/my_account">My Account</Link>
             </li>
             <NavItem href="/auth/logout">Logout</NavItem>
           </Navbar>

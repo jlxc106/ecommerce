@@ -22,16 +22,21 @@ class SignIn extends Component {
           email,
           password
         },
-        this.props.history
+        this.props.history,
+        this.signInErrorCallback
       );
     }
+  }
+
+  signInErrorCallback(message) {
+    return window.Materialize.toast(message, 1000);
   }
 
   renderSignInError() {
     if (!_.isEmpty(this.props.error)) {
       const { message, type } = this.props.error;
       if (type === 'sign_in_error') {
-        return <h3 className="text-red">{message}</h3>;
+        return <span className="text-red">{message}</span>;
       }
     }
     return null;
