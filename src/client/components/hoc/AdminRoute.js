@@ -2,12 +2,12 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
 const AdminRoute = ({ component: PrivateComponent, auth, ...rest }) => {
-  console.log(auth);
+  // console.log(auth);
   return (
     <Route
       {...rest}
       render={props =>{
-          console.log(props);
+          // console.log(props);
         if(auth === false){
             return <Redirect to="" />
         }

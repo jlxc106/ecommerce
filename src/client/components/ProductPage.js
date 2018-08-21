@@ -95,7 +95,7 @@ class ProductPage extends Component {
   }
 
   render() {
-    console.log(this.props.location.state);
+    // console.log(this.props.location.state);
     if (this.props.error && this.props.error.type === PRODUCT_ERROR) {
       return (
         <div className="div-horizontal-margin">

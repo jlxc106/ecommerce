@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import { injectStripe } from 'react-stripe-elements';
-import PaymentRequestButton from './PaymentRequestButtonElement';
 import { Button } from 'react-materialize';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 
 import * as actions from '../../actions';
-import AddressSection from './AddressSection';
 import CardSection from './CardSection';
-import PersonalSection from './PersonalSection';
 import { renderField } from '../../helpers/renderField';
 
 class CheckoutForm extends Component {
@@ -27,7 +24,7 @@ class CheckoutForm extends Component {
       const { customerName } = this.props.form.checkout.values;
       let response = await this.props.stripe.createToken({ name: customerName });
       let token = response.token;
-      console.log(`token `, token);
+      // console.log(`token `, token);
       token = {
         ...token,
         purchaseQuantity,
@@ -67,7 +64,7 @@ class CheckoutForm extends Component {
   //auto fill state field
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
         <div>

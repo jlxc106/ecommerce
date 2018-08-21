@@ -15,7 +15,7 @@ export default (state = [], action) => {
     case USER_PRODUCTS:
       return action.payload;
     case GET_PRODUCT:
-      console.log(action.payload);
+      // console.log(action.payload);
       return action.payload;
     case ALL_PRODUCTS:
       return action.payload;

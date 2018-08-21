@@ -10,7 +10,7 @@ const UserRoute = ({ component: PrivateComponent, auth, ...rest }) => {
         if(auth === false){
             return <Redirect to="" />
         }
-        console.log(props);
+        // console.log(props);
         // if(auth && auth.email !== 'jaylim106@gmail.com'){
         //     return <Redirect to="" />
         // }

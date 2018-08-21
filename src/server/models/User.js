@@ -17,10 +17,10 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.validatePassword = async function(password) {
-  console.log(password + ' is being validated');
+//   console.log(password + ' is being validated');
   return new Promise(async (resolve, reject) => {
     const res = await bcrypt.compare(password, this.password);
-    console.log(res, 'what is bcrypt result');
+    // console.log(res, 'what is bcrypt result');
     if (res) {
       resolve(this);
     } else {

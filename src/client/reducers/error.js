@@ -6,7 +6,7 @@ export default (state = {}, action) =>{
         case ACCOUNT_ERROR:
         case PRODUCT_ERROR:
         case SIGN_IN_ERROR:
-            console.log(action);
+            // console.log(action);
             return {message: action.payload.message, type: action.type};
         default:
             return state;

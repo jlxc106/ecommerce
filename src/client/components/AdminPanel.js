@@ -46,7 +46,7 @@ class AdminPanel extends Component {
   }
 
   handleProductEdit(num){
-    console.log();
+    // console.log();
   }
 
   handleProductRegister(e) {

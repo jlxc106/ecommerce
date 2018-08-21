@@ -40,7 +40,7 @@ Card.prototype.render = function() {
 Card.prototype.renderTitle = function(title, reveal) {
   const { titleUrl } = this.props;
   if (titleUrl) {
-    console.log(titleUrl);
+    // console.log(titleUrl);
     return (
       <span
         className={cx('card-title', 'grey-text', 'text-darken-4', {
