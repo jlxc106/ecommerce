@@ -87,7 +87,7 @@ module.exports = app => {
       });
       res.send(updatedProduct);
     } catch (err) {
-      res.send(err);
+      res.send({error: err});
       // res.status(400).send(err);
     }
   });

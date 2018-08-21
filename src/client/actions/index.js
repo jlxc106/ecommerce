@@ -23,11 +23,11 @@ export const getCurrentUser = () => async dispatch => {
   }
 };
 
-export const handleToken = token => async dispatch => {
+export const handleToken = (token, callback) => async dispatch => {
   try {
     console.log('token', token);
     const res = await axios.post('/api/stripe', token);
-    // // console.log(res);
+    console.log(res);
     if(res.error){
       console.log('unable to purchase');
     }
@@ -37,6 +37,7 @@ export const handleToken = token => async dispatch => {
       newQuantity: res.data.quantity,
       id: res.data._id
     });
+    callback();
   } catch (err) {
     console.error(err);
   }

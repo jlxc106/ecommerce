@@ -18,10 +18,6 @@ class ProductPage extends Component {
     };
   }
 
-  handleQuantityChange(e) {
-    this.setState({ purchaseQuantity: e.target.value });
-  }
-
   componentWillMount() {
     if (!this.props.location.state) {
       const { product_id } = this.props.match.params;
@@ -30,6 +26,14 @@ class ProductPage extends Component {
     this.componentDidUpdate();
   }
 
+  componentDidUpdate() {
+    if (this.state.productIsValid) {
+      return;
+    }
+    if (this.props.location.state.product && !this.state.productIsValid) {
+      this.setState({ productIsValid: true });
+    }
+  }
   renderPrice(price) {
     const cumulativePrice = price * this.state.purchaseQuantity;
     if (cumulativePrice < 100) return `0.${cumulativePrice}`;
@@ -70,24 +74,28 @@ class ProductPage extends Component {
     return listToBeRendered;
   }
 
-  componentDidUpdate() {
-    if (this.state.productIsValid) {
+  handleQuantityChange(e) {
+    this.setState({ purchaseQuantity: e.target.value });
+  }
+
+  handleCheckout(e){
+    const {price} = this.props.location.state.product;
+
+    if(price * this.state.purchaseQuantity < 50){
+      window.Materialize.toast('Minimum value for transaction is 50 cents');
       return;
     }
-    let product;
-    if (this.props.location.state && this.props.location.state.product) {
-      product = this.props.location.state.product;
-    } else {
-      product = this.props.product;
-    }
-    if (product && !this.state.productIsValid) {
-      this.setState({ productIsValid: true });
-    }
+    this.props.history.push({
+      pathname: '/checkout',
+      state: {
+        product: this.props.location.state.product,
+        purchaseQuantity: this.state.purchaseQuantity
+      }
+    })
   }
 
   render() {
-    console.log(this.state);
-    console.log(this.props);
+    console.log(this.props.location.state);
     if (this.props.error && this.props.error.type === PRODUCT_ERROR) {
       return (
         <div className="div-horizontal-margin">
@@ -95,12 +103,13 @@ class ProductPage extends Component {
         </div>
       );
     }
-    let product;
-    if (this.props.location.state && this.props.location.state.product) {
-      product = this.props.location.state.product; //prioritize product object passed from Link
-    } else {
-      product = this.props.product; // fallback on redux state of product from getProduct
-    }
+    // let product;
+    // if (this.props.location.state && this.props.location.state.product) {
+    const product = this.props.location.state.product; //prioritize product object passed from Link
+    // }
+    // else {
+    //   product = this.props.product; // fallback on redux state of product from getProduct
+    // }
 
     if (!this.state.productIsValid || !product || _.isEmpty(product)) {
       return <div>Loading...</div>;
@@ -140,14 +149,25 @@ class ProductPage extends Component {
                     {this.renderQuantityList(quantity)}
                   </select>
                 </form>
-                <Button
-                  disabled={this.userIsLoggedIn()}
-                  className={`blue ${
-                    this.userIsLoggedIn() ? 'hide-default' : ''
-                  }`}
-                >
-                  Purchase
-                </Button>
+                {/* <Link
+                  to={{
+                    pathname: '/checkout',
+                    state: {
+                      product,
+                      purchaseQuantity: this.state.purchaseQuantity
+                    }
+                  }}
+                > */}
+                  <Button
+                    onClick={e=>this.handleCheckout(e)}
+                    disabled={this.userIsLoggedIn()}
+                    className={`blue ${
+                      this.userIsLoggedIn() ? 'hide-default' : ''
+                    }`}
+                  >
+                    Purchase
+                  </Button>
+                {/* </Link> */}
                 <Link to="/signIn">
                   <Button
                     disabled={!this.userIsLoggedIn()}
