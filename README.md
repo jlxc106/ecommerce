@@ -1,5 +1,7 @@
 # E-commerce App
 
+[Live Page](https://store.jayclim.com)
+
 Customizable E-commerce app that relies on Stripe API to safely handle user payment info. App will be deployed onto a secure domain. 
 
 ## **Technologies/API's Used:**
@@ -14,12 +16,21 @@ Customizable E-commerce app that relies on Stripe API to safely handle user paym
 
 ## **Future Features:**
 * Set up mailing service
-* Admin User Features
-* Add Inventory
+* Allow multiple images to be uploaded per product listing
+* 
 
 ## Author: Jay Lim
 
 ### Change Log: 
+
+8/19/18:
+ * Product Page
+ * Customized Card Components with Links in title
+
+8/18/18:
+ * Production server ready
+ * SSL set up
+ * Moving away from react-stripe-checkout due to CSP & lag concerns
 
 8/17/18:
  * Update stock in DB

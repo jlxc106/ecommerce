@@ -2,7 +2,8 @@ import {
   REGISTER_PRODUCT,
   USER_PRODUCTS,
   ALL_PRODUCTS,
-  UPDATE_PRODUCT
+  UPDATE_PRODUCT,
+  GET_PRODUCT
 } from '../actions/index';
 
 import { updateProductQuantity } from '../helpers/updateProduct';
@@ -12,6 +13,9 @@ export default (state = [], action) => {
     case REGISTER_PRODUCT:
       return [...state, action.payload];
     case USER_PRODUCTS:
+      return action.payload;
+    case GET_PRODUCT:
+      console.log(action.payload);
       return action.payload;
     case ALL_PRODUCTS:
       return action.payload;

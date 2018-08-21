@@ -14,7 +14,7 @@ import AdminPanel from './AdminPanel';
 import AdminRoute from './hoc/AdminRoute';
 import UserRoute from './hoc/UserRoute';
 import ProductPage from './ProductPage';
-import TestElement from './checkout/TestElement';
+import CheckoutPage from './checkout/CheckoutPage';
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/signIn" component={SignIn} />
             <Route path="/signUp" component={SignUp} />
-            <Route path="/elements" component={TestElement} />
+            <UserRoute path="/checkout" auth={this.props.auth} component={CheckoutPage} />
             <UserRoute
               path="/my_account"
               auth={this.props.auth}
@@ -46,7 +46,7 @@ class App extends Component {
               auth={this.props.auth}
               component={AdminPanel}
             />
-            <Route path="/product_page" component={ProductPage} />
+            <Route path="/product_page/:product_id" component={ProductPage} />
           </Switch>
         </div>
       </Router>

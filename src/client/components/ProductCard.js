@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Card, Button, Col, Row } from 'react-materialize';
+import { Button, Col, Row } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import Card from '../helpers/customCard';
 
 // import Payments from './Payments';
 
 class ProductCard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      purchaseQuantity: 1
-    };
+    // this.state = {
+    //   purchaseQuantity: 1
+    // };
   }
 
   handleQuantityChange(e) {
@@ -19,7 +20,6 @@ class ProductCard extends Component {
   renderQuantity() {
     let totalQuantity = this.props.product.quantity;
     let renderOptions = ['hide-default', 'hide-default'];
-    // console.log(this.props.product.quantity);
     let hideSoldOut = 'hide-default';
 
     if (totalQuantity == 0) {
@@ -60,13 +60,20 @@ class ProductCard extends Component {
 
   renderPrice() {
     const { price } = this.props.product;
-    const cumulativePrice = price * this.state.purchaseQuantity;
-    if (cumulativePrice < 100) return `0.${cumulativePrice}`;
+    if (price < 100) return `0.${price}`;
     else {
-      let cents = parseInt(cumulativePrice % 100) || '00';
-      let dollars = parseInt(cumulativePrice / 100);
+      let cents = parseInt(price % 100) || '00';
+      let dollars = parseInt(price / 100);
       return `${dollars}.${cents}`;
     }
+
+    // const cumulativePrice = price * this.state.purchaseQuantity;
+    // if (cumulativePrice < 100) return `0.${cumulativePrice}`;
+    // else {
+    //   let cents = parseInt(cumulativePrice % 100) || '00';
+    //   let dollars = parseInt(cumulativePrice / 100);
+    //   return `${dollars}.${cents}`;
+    // }
   }
 
   render() {
@@ -75,17 +82,39 @@ class ProductCard extends Component {
       hideSoldOut = null;
     }
     const { index, product } = this.props;
-    const { name, description, price, quantity, imageUrl } = product;
+    const { _id, name, description, price, quantity, imageUrl } = product;
     return (
       <Card
-        // onClick={() => console.log(1)}
         key={index}
         product={product}
         className="border-teal"
         textClassName="black-text"
         title={name}
+        titleUrl={
+          <Link
+            key={index}
+            to={{
+              pathname: `/product_page/${_id}`,
+              state: {
+                product
+              }
+            }}
+          >
+            {name}
+          </Link>
+        }
         actions={[
-          <Link key={index} to="/product_page">{`${name} product page`}</Link>
+          <Link
+            key={index}
+            to={{
+              pathname: `/product_page/${_id}`,
+              state: {
+                product
+              }
+            }}
+          >
+            {`${name} product page`}
+          </Link>
         ]}
       >
         <Row>
@@ -93,7 +122,7 @@ class ProductCard extends Component {
             {imageUrl ? (
               <img
                 className="img-product-card"
-                src={`https://jlxc106-ecommerce-123.s3.us-west-1.amazonaws.com/${imageUrl}`}
+                src={`${process.env.AWS_S3_BASE_URL}${imageUrl}`}
               />
             ) : null}
             <p>{description}</p>
@@ -113,16 +142,15 @@ class ProductCard extends Component {
                   {this.renderList()}
                 </select>
               </form> */}
-              <Link to={{
-                pathname: "/product_page", 
-                state: {
-                  product 
-                }}}>
-                <Button
-                  className="blue btn-margin"
-                >
-                  Product Page
-                </Button>
+              <Link
+                to={{
+                  pathname: `/product_page/${_id}`,
+                  state: {
+                    product
+                  }
+                }}
+              >
+                <Button className="blue btn-margin">Product Page</Button>
               </Link>
               {/* <Payments
                 purchaseQuantity={this.state.purchaseQuantity}
