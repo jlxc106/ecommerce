@@ -71,34 +71,25 @@ class CheckoutForm extends Component {
     // console.log(this.props);
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
-        <label className="checkout-label">
-          Personal Info
-          <Field type="text" name="name" label="Name" component={renderField} />
-        </label>
-        <label className="checkout-label">
-          Address details
-          <Field
-            component={renderField}
-            type="text"
-            label="Address"
-            name="address"
-          />
-          <Field component={renderField} type="text" label="City" name="city" />
-          <Field
-            component={renderField}
-            type="text"
-            label="State"
-            name="state"
-          />
-          <Field
-            component={renderField}
-            type="text"
-            label="Country"
-            name="country"
-          />
-          <Field component={renderField} type="number" label="ZIP" name="zip" />
-        </label>
-        <div>
+        <label className="checkout-label">Personal Info</label>
+        <Field type="text" name="name" label="Name" component={renderField} autoFocus={true}/>
+        <label className="checkout-label">Address details</label>
+        <Field
+          component={renderField}
+          type="text"
+          label="Address"
+          name="address"
+        />
+        <Field component={renderField} type="text" label="City" name="city" />
+        <Field component={renderField} type="text" label="State" name="state" />
+        <Field
+          component={renderField}
+          type="text"
+          label="Country"
+          name="country"
+        />
+        <Field component={renderField} type="number" label="ZIP" name="zip" />
+        <div className="container-card-checkout">
           {' '}
           <CardSection />
         </div>

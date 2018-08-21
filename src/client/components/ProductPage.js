@@ -80,7 +80,7 @@ class ProductPage extends Component {
 
   handleCheckout(e) {
     const { quantity, price } = this.props.location.state.product;
-    console.log(this.props.location.state.product);
+    // console.log(this.props.location.state.product);
     if (quantity === 0) {
       window.Materialize.toast('Out of Inventory', 1000);
       return;
@@ -103,7 +103,7 @@ class ProductPage extends Component {
   }
 
   render() {
-    // console.log(this.props.location.state);
+    console.log(this.props.location.state);
     if (this.props.error && this.props.error.type === PRODUCT_ERROR) {
       return (
         <div className="div-horizontal-margin">
@@ -124,7 +124,7 @@ class ProductPage extends Component {
     }
     const { imageUrl, name, description, price, quantity, seller } = product;
     const sellerName = seller.name;
-    console.log(product);
+    // console.log(product);
     return (
       <div className="div-horizontal-margin">
         <div className="">

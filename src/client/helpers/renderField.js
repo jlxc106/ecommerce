@@ -17,14 +17,15 @@ export const renderField = ({
   label,
   input,
   type,
-  meta: { touched, error }
+  meta: { touched, error },
+  ...inputProps
 }) => {
   const hasError = touched && error;
   return (
     <div>
       <label>{label}</label>
       <div>
-        <input {...input} type={type} />
+        <input {...input} type={type} {...inputProps}/>
         {hasError ? (
           typeof error === 'object' ? (
             <ul className="text-red error-li">
