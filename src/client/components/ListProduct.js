@@ -17,7 +17,7 @@ class ListProduct extends Component {
           <ListItemProduct
             key={index}
             item={item}
-            callback={this.props.callback}
+            // callback={this.props.callback}
           />
         );
       });

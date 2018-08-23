@@ -15,6 +15,7 @@ import AdminRoute from './hoc/AdminRoute';
 import UserRoute from './hoc/UserRoute';
 import ProductPage from './ProductPage';
 import CheckoutPage from './checkout/CheckoutPage';
+import EditProduct from './EditProduct';
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +23,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.getCurrentUser();
+    this.props.getCurrentUser(this.errorCallback);
+  }
+
+  errorCallback(message){
+    window.Materialize.toast(message, 1000);
   }
 
   render() {
@@ -45,6 +50,11 @@ class App extends Component {
               path="/admin"
               auth={this.props.auth}
               component={AdminPanel}
+            />
+            <AdminRoute 
+              path="/editProduct/:product_id"
+              auth={this.props.auth}
+              component={EditProduct}
             />
             <Route path="/product_page/:product_id" component={ProductPage} />
           </Switch>

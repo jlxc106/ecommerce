@@ -12,6 +12,7 @@ const stripe = require('stripe')(config.stripeSecretKey);
 
 require('./server/models/Product');
 require('./server/models/User');
+require('./server/models/Log');
 require('./server/passport/passport');
 
 mongoose.Promise = global.Promise;
@@ -27,19 +28,23 @@ app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000,
     keys: [config.cookieKey],
-    secret: config.cookieSecret,
+    secret: config.cookieSecret
   })
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+if(process.env.NODE_ENV === 'production'){
+  require('./server/middleware/logs')(app);
+}
 
 require('./server/routes/api')(app);
 require('./server/routes/auth')(app);
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.get('*', (req, res)=>{
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
-})
+});
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));

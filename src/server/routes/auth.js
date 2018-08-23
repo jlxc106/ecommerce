@@ -3,7 +3,6 @@ const passport = require('passport');
 
 module.exports = app => {
   app.get('/auth/currentUser', (req, res) => {
-    // console.log('user: ', req.user);
     res.send(req.user);
   });
 
@@ -49,7 +48,6 @@ module.exports = app => {
     '/auth/google',
     passport.authenticate('google', {
       scope: [
-        // 'https://www.googleapis.com/auth/plus.login'
         'profile',
         'email'
       ]

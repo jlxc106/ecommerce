@@ -118,8 +118,8 @@ class ProductCard extends Component {
         ]}
       >
         <Row>
-          <Col className="abc" s={12} m={12} l={9} xl={9}>
-            {imageUrl ? (
+          <Col className="product-card-col" s={12} m={12} l={9} xl={9}>
+            {imageUrl && imageUrl.length > 0 ? (
               <Link
                 key={index}
                 to={{
@@ -131,27 +131,16 @@ class ProductCard extends Component {
               >
                 <img
                   className="img-product-card"
-                  src={`${process.env.AWS_S3_BASE_URL}${imageUrl}`}
+                  src={`${process.env.AWS_S3_BASE_URL}${imageUrl[0]}`}
                 />
               </Link>
             ) : null}
             <p>{description}</p>
           </Col>
-          <Col className="abc" s={12} m={12} l={3} xl={3}>
+          <Col className="product-card-col" s={12} m={12} l={3} xl={3}>
             <div className="contain-payment">
               <p className={`text-red ${hideSoldOut}`}>SOLD OUT</p>
               <p>${this.renderPrice()}</p>
-              {/* <form className="form-qty">
-                qty:{' '}
-                <select
-                  className="select-qty"
-                  name="qty"
-                  onChange={e => this.handleQuantityChange(e)}
-                  disabled={quantity == 0 ? true : false}
-                >
-                  {this.renderList()}
-                </select>
-              </form> */}
               <Link
                 to={{
                   pathname: `/product_page/${_id}`,
@@ -162,10 +151,6 @@ class ProductCard extends Component {
               >
                 <Button className="blue btn-margin">Product Page</Button>
               </Link>
-              {/* <Payments
-                purchaseQuantity={this.state.purchaseQuantity}
-                product={product}
-              /> */}
               <p>Total Quantity Remaining: {quantity}</p>
             </div>
           </Col>

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { resolve } from 'url';
 
 export const CURRENT_USER = 'current_user';
 export const SIGN_IN_ERROR = 'sign_in_error';
@@ -9,9 +10,9 @@ export const REGISTER_PRODUCT = 'register_product';
 export const USER_PRODUCTS = 'user_products';
 export const ALL_PRODUCTS = 'all_products';
 export const UPDATE_PRODUCT = 'update_product';
-export const GET_PRODUCT = 'get_product'
+export const GET_PRODUCT = 'get_product';
 
-export const getCurrentUser = () => async dispatch => {
+export const getCurrentUser = errorCallback => async dispatch => {
   try {
     const res = await axios.get('/auth/currentUser');
     dispatch({
@@ -19,17 +20,21 @@ export const getCurrentUser = () => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.error('disconnected from api server');
+    errorCallback('disconnected from api server');
+    return;
   }
 };
 
-export const handleToken = (token, callback) => async dispatch => {
+export const handleToken = (
+  token,
+  successCallback,
+  errorCallback
+) => async dispatch => {
   try {
-    // console.log('token', token);
     const res = await axios.post('/api/stripe', token);
-    // console.log(res);
-    if(res.error){
-      console.log('unable to purchase');
+    if (res.error) {
+      errorCallback('There was an error with checkout.');
+      return;
     }
     dispatch({
       type: UPDATE_PRODUCT,
@@ -37,16 +42,19 @@ export const handleToken = (token, callback) => async dispatch => {
       newQuantity: res.data.quantity,
       id: res.data._id
     });
-    callback();
+    successCallback();
   } catch (err) {
     console.error(err);
   }
 };
 
-export const handleSignInFormSubmit = (form, history, errorCallback) => async dispatch => {
+export const handleSignInFormSubmit = (
+  form,
+  history,
+  errorCallback
+) => async dispatch => {
   try {
     const res = await axios.post('/auth/signIn', form);
-    // console.log('post response: ',res);
     if (res.data.email) {
       dispatch({
         type: CURRENT_USER,
@@ -118,18 +126,38 @@ export const getUserProducts = () => async dispatch => {
 
 export const createProduct = (formValues, file, callback) => async dispatch => {
   try {
-    let imageUrl = '';
-    const uploadConfig = await axios.get('/api/aws_presignedUrl');
-    if (file) {
-      await axios.put(uploadConfig.data.url, file, {
-        headers: { 'Content-Type': file.type }
-      });
-      imageUrl = uploadConfig.data.key;
+    let imageUrl = [];
+    if (file && file.length > 0) {
+      const uploadConfig = await axios.get(
+        `/api/aws_presignedUrl/${file.length}`
+      );
+      console.log(uploadConfig);
+      // return;
+      // console.log(file);
+      // return;
+      imageUrl = await Promise.all(
+        uploadConfig.data.map(async (s3Object, index) => {
+          return new Promise(async (resolve, reject) => {
+            try {
+              await axios.put(s3Object.url, file[index], {
+                headers: { 'Content-Type': file[index].type }
+              });
+              resolve(s3Object.key);
+            } catch (e) {
+              reject(e);
+            }
+          });
+        })
+      );
+      // await axios.put(uploadConfig.data.url, file, {
+      //   headers: { 'Content-Type': file.type }
+      // });
+      // imageUrl = uploadConfig.data.key;
     }
-
+    // console.log('imageUrl: ', imageUrl);
     const res = await axios.post('/api/createProduct', {
       ...formValues,
-      imageUrl: imageUrl || ''
+      imageUrl: imageUrl.length > 0 ? imageUrl : ['']
     });
     dispatch({
       type: REGISTER_PRODUCT,
@@ -153,26 +181,25 @@ export const getAllProducts = () => async dispatch => {
   }
 };
 
-export const getProductById = (id) => async dispatch =>{
-  try{
+export const getProductById = id => async dispatch => {
+  try {
     const res = await axios.get('/api/getProductById');
     console.log(res);
-    if(res.data.message){
+    if (res.data.message) {
       dispatch({
         type: PRODUCT_ERROR,
         payload: res.data
-      })
-    }else{
+      });
+    } else {
       dispatch({
         type: GET_PRODUCT,
         payload: res.data
       });
     }
-  }
-  catch(err){
+  } catch (err) {
     console.error(err);
   }
-}
+};
 
 export const editProduct = data => async dispatch => {
   try {
