@@ -18,20 +18,32 @@ const s3 = new AWS.S3({
 });
 
 module.exports = app => {
-  app.get('/api/aws_presignedUrl', async (req, res) => {
-    const key = `${req.user.id}/${uuid()}.jpeg`;
-
-    s3.getSignedUrl(
-      'putObject',
-      {
-        Bucket: 'jlxc106-ecommerce-123',
-        ContentType: 'image/jpeg',
-        Key: key
-      },
-      (err, url) => {
-        res.send({ key, url });
-      }
-    );
+  app.get('/api/aws_presignedUrl/:numFiles', async (req, res) => {
+    const numFiles = req.params.numFiles;
+    let listKeys = [];
+    for(var i=0; i<numFiles; i++){
+      listKeys.push(`${req.user.id}/${uuid()}.jpeg`);
+    }
+    const promList = listKeys.map( key =>{
+      return new Promise(async (resolve, reject)=>{
+        try{  
+          let url = await s3.getSignedUrl(
+            'putObject',
+            {
+              Bucket: 'jlxc106-ecommerce-123',
+              ContentType: 'image/jpeg',
+              Key: key
+            }
+          );
+          resolve({key, url});
+        }
+        catch(e){
+          reject(e);
+        }
+      })
+    })
+    const promiseArray = await Promise.all(promList);
+    res.send(promiseArray);
   });
 
   app.get('/api/userProducts', requireAdmin, async (req, res) => {
@@ -80,13 +92,12 @@ module.exports = app => {
       res.send(updatedProduct);
     } catch (err) {
       res.send({error: err});
-      // res.status(400).send(err);
     }
   });
 
   app.get('/api/getProducts', async (req, res) => {
     try {
-      const listOfProducts = await Product.find({}, null, { batchSize: 20 });
+      const listOfProducts = await Product.find({}, null);
       res.send(listOfProducts);
     } catch (err) {
       res.status(400).send(err);
@@ -100,7 +111,6 @@ module.exports = app => {
       res.send(getProduct || { message: 'Invalid Product ID' });
     } catch (err) {
       res.send({ message: 'Invalid Product ID' });
-      // res.status(400).send(err);
     }
   });
 };

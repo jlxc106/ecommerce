@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
-
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124438997-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-124438997-1');
+    </script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Ecommerce - Jay Lim">
@@ -16,23 +20,8 @@
     <meta property="og:description" content="Ecommerce - Jay Lim" />
     <meta property="og:image" content="./favicon.png" />
     <title>Ecommerce App</title>
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 
-    https://www.google.com
-    https://www.stripe.com 
-    https://checkout.stripe.com 'self';
-     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; 
-     script-src 'self' 'unsafe-inline' https://www.stripe.com/ https://*.stripe.com/ 
-     https://code.jquery.com https://cdnjs.cloudflare.com
-     https://www.gstatic.com https://www.google.com 'unsafe-inline'
-     https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/;
-     child-src https://www.google.com/ https://checkout.stripe.com/ 'self';
-     img-src 'self' https://jlxc106-ecommerce-123.s3.us-west-1.amazonaws.com/ https://*.stripe.com/; 
-     font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
-     connect-src 'self' ws://localhost:8080 https://*.stripe.com;
-     worker-src 'self' https://www.google.com/;
-     frame-src https://checkout.stripe.com https://js.stripe.com https://www.google.com/recaptcha/;
-     "> -->
-     <script src="https://js.stripe.com/v3/"></script>
+    <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNGakh-vKUDZBEKzVbpmYPu3yWYt1fnTw&libraries=places"></script> -->
+    <script src="https://js.stripe.com/v3/"></script>
 
     <link rel="shortcut icon" type="image/png" href="./favicon.png" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -44,4 +33,5 @@
 <body>
     <div id="app"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
 </html>

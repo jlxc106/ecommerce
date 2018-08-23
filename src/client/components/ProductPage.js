@@ -124,6 +124,11 @@ class ProductPage extends Component {
     }
     const { imageUrl, name, description, price, quantity, seller } = product;
     const sellerName = seller.name;
+
+    const imageSrc = imageUrl.map(url=>{
+      return `${process.env.AWS_S3_BASE_URL}${url}`
+    })
+
     // console.log(product);
     return (
       <div className="div-horizontal-margin">
@@ -132,7 +137,13 @@ class ProductPage extends Component {
             <Col s={12} m={12} l={5} xl={5} className="product-page-left">
               <Carousel
                 className="img-carousel"
-                images={[`${process.env.AWS_S3_BASE_URL}${ typeof imageUrl === String ? imageUrl: imageUrl[0]}`]}
+                options={{ fullWidth: true }}
+                images={imageSrc}
+                // images={[
+                //   `${process.env.AWS_S3_BASE_URL}${
+                //     typeof imageUrl === String ? imageUrl : imageUrl[0]
+                //   }`
+                // ]}
                 options={{
                   noWrap: true
                 }}

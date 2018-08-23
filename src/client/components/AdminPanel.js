@@ -45,14 +45,22 @@ class AdminPanel extends Component {
     this.setState({ file });
   }
 
-  handleProductEdit(num){
-    // console.log();
-  }
+  // handleProductEdit(num){
+  //   // console.log();
+  // }
 
   handleProductRegister(e) {
     e.preventDefault();
     if (this.props.form.registerProduct.syncErrors) {
       return;
+    }
+    if(this.state.file !== null){
+      for(var i=0; i<this.state.file.length; i++){
+        if(this.state.file[i].type === 'image/png'){
+          window.Materialize.toast('input valid jpeg files', 1000);
+          return;
+        }
+      }
     }
 
     const {
@@ -64,6 +72,9 @@ class AdminPanel extends Component {
 
     const priceInCents = parseFloat(price.substring(2)) * 100;
 
+    if(this.state.file && this.state.file.length > 0){
+
+    }
     const { file } = this.state;
     this.props.createProduct(
       {
@@ -72,7 +83,7 @@ class AdminPanel extends Component {
         price: priceInCents,
         quantity
       },
-      file,
+      (file && file.length) > 0 ? file : null,
       () => {
         this.closeProductModal();
       }
@@ -80,6 +91,7 @@ class AdminPanel extends Component {
   }
 
   render() {
+    // console.log(this.state.file);
     const { product } = this.props;
     return (
       <div className="div-horizontal-margin" id="admin-div">
@@ -89,7 +101,9 @@ class AdminPanel extends Component {
           <h5>Your Products</h5>
         </div>
         <hr />
-        <ListProduct callback={this.handleProductEdit}/>
+        <ListProduct
+        // callback={this.handleProductEdit}
+        />
         {/* <Button className="orange" onClick={() => this.enableEdit()}>
           Edit
         </Button> */}

@@ -17,8 +17,6 @@ class CheckoutForm extends Component {
   }
 
   async handleSubmit(e) {
-    // console.log(this.props);
-    // We don't want to let default form submission happen here, which would refresh the page.
     e.preventDefault();
     if (!this.props.form.checkout.syncErrors) {
       const purchaseQuantity = this.props.purchaseQuantity;
@@ -28,7 +26,6 @@ class CheckoutForm extends Component {
         name: customerName
       });
       let token = response.token;
-      // console.log(`token `, token);
       token = {
         ...token,
         purchaseQuantity,
@@ -38,42 +35,43 @@ class CheckoutForm extends Component {
         price,
         productId: _id
       };
-      this.props.handleToken(token, this.successfulPurchaseCallback);
+      this.props.handleToken(
+        token,
+        this.successfulPurchaseCallback,
+        this.errorCallback
+      );
     }
-    // Within the context of `Elements`, this call to createToken knows which Element to
-    // tokenize, since there's only one in this group.
-    // this.props.stripe
-    //   .createToken({ type: 'card', name: 'Jenny Rosen' })
-    //   .then(res => {
-    //     console.log('Received Stripe token:', res);
-    //   });
-
-    // However, this line of code will do the same thing:
-    //
-    // this.props.stripe.createToken({type: 'card', name: 'Jenny Rosen'});
-
-    // You can also use createSource to create Sources. See our Sources
-    // documentation for more: https://stripe.com/docs/stripe-js/reference#stripe-create-source
-    //
-    // this.props.stripe
-    //   .createSource({ type: 'card', name: 'Jenny Rosen' })
-    //   .then(res => {
-    //     console.log(res);
-    //   });
   }
+
   successfulPurchaseCallback() {
     this.props.history.push('/');
     window.Materialize.toast('Thank you for your purchase.', 1000);
   }
-  //auto fill state field
+
+  errorCallback(message) {
+    window.Materialize.toast(message, 1000);
+  }
 
   render() {
-    // console.log(this.props);
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
         <label className="checkout-label">Personal Info</label>
-        <Field type="text" name="name" label="Name" component={renderField} autoFocus={true}/>
+        <Field
+          type="text"
+          name="name"
+          label="Name"
+          component={renderField}
+          autoFocus={true}
+        />
         <label className="checkout-label">Address details</label>
+        {/* <Autocomplete
+          style={{ width: '90%' }}
+          onPlaceSelected={place => {
+            console.log(place);
+          }}
+          types={['(regions)']}
+          componentRestrictions={{ country: 'us' }}
+        /> */}
         <Field
           component={renderField}
           type="text"
@@ -93,9 +91,7 @@ class CheckoutForm extends Component {
           {' '}
           <CardSection />
         </div>
-
         <Button>Confirm order</Button>
-        {/* <PaymentRequestButton /> */}
       </form>
     );
   }
@@ -112,9 +108,11 @@ const validate = values => {
   if (!values.address) {
     errors.address = 'Required';
   }
+
   if (!values.city) {
     errors.city = 'Required';
   }
+
   if (!values.state) {
     errors.state = 'Required';
   }
@@ -125,6 +123,8 @@ const validate = values => {
 
   if (!values.zip) {
     errors.zip = 'Required';
+  } else if (values.zip < 10000) {
+    errors.zip = 'Invalid zip code';
   }
 
   return errors;
