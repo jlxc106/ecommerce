@@ -119,7 +119,7 @@ class ProductCard extends Component {
       >
         <Row>
           <Col className="product-card-col" s={12} m={12} l={9} xl={9}>
-            {imageUrl && imageUrl.length > 0 ? (
+            {imageUrl && imageUrl.length > 0  && imageUrl[0].length > 0 ? (
               <Link
                 key={index}
                 to={{

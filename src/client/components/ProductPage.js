@@ -125,9 +125,9 @@ class ProductPage extends Component {
     const { imageUrl, name, description, price, quantity, seller } = product;
     const sellerName = seller.name;
 
-    const imageSrc = imageUrl.map(url=>{
-      return `${process.env.AWS_S3_BASE_URL}${url}`
-    })
+    const imageSrc = imageUrl.map(url => {
+      return `${process.env.AWS_S3_BASE_URL}${url}`;
+    });
 
     // console.log(product);
     return (
@@ -135,19 +135,21 @@ class ProductPage extends Component {
         <div className="">
           <Row>
             <Col s={12} m={12} l={5} xl={5} className="product-page-left">
-              <Carousel
-                className="img-carousel"
-                options={{ fullWidth: true }}
-                images={imageSrc}
-                // images={[
-                //   `${process.env.AWS_S3_BASE_URL}${
-                //     typeof imageUrl === String ? imageUrl : imageUrl[0]
-                //   }`
-                // ]}
-                options={{
-                  noWrap: true
-                }}
-              />
+              {imageUrl && imageUrl.length > 0 && imageUrl[0].length > 0 ? (
+                <Carousel
+                  className="img-carousel"
+                  options={{ fullWidth: true }}
+                  images={imageSrc}
+                  // images={[
+                  //   `${process.env.AWS_S3_BASE_URL}${
+                  //     typeof imageUrl === String ? imageUrl : imageUrl[0]
+                  //   }`
+                  // ]}
+                  options={{
+                    noWrap: true
+                  }}
+                />
+              ) : null}
             </Col>
             <Col s={12} m={12} l={7} xl={7} className="product-page-right">
               <div>
