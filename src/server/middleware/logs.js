@@ -4,13 +4,14 @@ const mongoose = require('mongoose');
 const Log = mongoose.model('Log');
 
 module.exports = app => {
-  app.use(async (req, res, next) => {
+  app.use(/^\/(api|auth)\//, async (req, res, next) => {
     const userId = req.user ? req.user.id : undefined;
     var timeStamp = new Date().toString();
+
     res.on('finish', async () => {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    console.log(req.connection.remoteAddress); 
-    const log = new Log({
+      const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+      const log = new Log({
         networkStatus: res.statusCode,
         userId,
         timeStamp,
