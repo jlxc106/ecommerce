@@ -34,6 +34,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+console.log('node env: ', process.env.NODE_ENV);
+
 if(process.env.NODE_ENV === 'production'){
   require('./server/middleware/logs')(app);
 }
