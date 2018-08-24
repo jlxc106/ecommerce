@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Log = mongoose.model('Log');
 
 module.exports = app => {
-  app.use(/^\/(api|auth)\//, async (req, res, next) => {
+  app.use(/\/api|\/auth/, async (req, res, next) => {
     const userId = req.user ? req.user.id : undefined;
     var timeStamp = new Date().toString();
 
