@@ -1,3 +1,4 @@
+// const fs = require('fs');
 const mongoose = require('mongoose');
 
 const Log = mongoose.model('Log');
@@ -6,6 +7,8 @@ module.exports = app => {
   app.use(async (req, res, next) => {
     const userId = req.user ? req.user.id : undefined;
     var timeStamp = new Date().toString();
+
+    console.log(userId);
 
     res.on('finish', async () => {
       const log = new Log({
