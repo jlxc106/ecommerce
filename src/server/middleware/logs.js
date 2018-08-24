@@ -8,8 +8,6 @@ module.exports = app => {
     const userId = req.user ? req.user.id : undefined;
     var timeStamp = new Date().toString();
 
-    console.log(userId);
-
     res.on('finish', async () => {
       const log = new Log({
         networkStatus: res.statusCode,
