@@ -25,6 +25,10 @@ Customizable E-commerce app that relies on Stripe API to safely handle user paym
 
 ### Change Log: 
 
+8/23/18:
+ * add ip to logs model
+ 
+
 8/21/18:
  * Implemented Mobile Responsiveness
  * Fix refresh error on non-index pages

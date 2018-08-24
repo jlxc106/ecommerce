@@ -11,7 +11,8 @@ const logSchema = new Schema({
       cookie: String,
       referer: String,
       "user-agent": String,
-  }
+  },
+  ip: String
 });
 
 mongoose.model('Log', logSchema);
