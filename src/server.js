@@ -23,6 +23,7 @@ mongoose.connect(
 
 const app = express();
 
+app.enable('trust proxy', 1);
 app.use(bodyParser.json());
 app.use(
   cookieSession({
