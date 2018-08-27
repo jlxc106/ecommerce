@@ -25,9 +25,12 @@ Customizable E-commerce app that relies on Stripe API to safely handle user paym
 
 ### Change Log: 
 
+8/25/18:
+ * implement html entity conversion for xss
+ * 
+
 8/23/18:
  * add ip to logs model
- 
 
 8/21/18:
  * Implemented Mobile Responsiveness

@@ -13,6 +13,7 @@ const stripe = require('stripe')(config.stripeSecretKey);
 require('./server/models/Product');
 require('./server/models/User');
 require('./server/models/Log');
+require('./server/models/Purchases');
 require('./server/passport/passport');
 
 mongoose.Promise = global.Promise;
