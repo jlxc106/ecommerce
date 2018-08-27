@@ -26,8 +26,7 @@ Customizable E-commerce app that relies on Stripe API to safely handle user paym
 ### Change Log: 
 
 8/25/18:
- * implement html entity conversion for xss
- * 
+ * implement html entity conversion for xss for fun/practice([React & JSX is inherently safe(r) against xss attacks](https://stackoverflow.com/questions/33644499/what-does-it-mean-when-they-say-react-is-xss-protected))
 
 8/23/18:
  * add ip to logs model

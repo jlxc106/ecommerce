@@ -73,7 +73,6 @@ module.exports = app => {
         }
       });
       await purchase.save();
-      console.log(charge);
       res.send(xss(JSON.stringify(updatedProduct)));
     } catch (err) {
       res.send({ error: err });
