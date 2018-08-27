@@ -5,3 +5,5 @@ config
 *bundle*
 bs.js
 server.log
+public/index.html
+xss.js

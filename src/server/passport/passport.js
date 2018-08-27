@@ -3,6 +3,8 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose');
 const validator = require('email-validator');
+const serialize = require('serialize-javascript');
+const xss = require('xss');
 
 const config = require('../config/config');
 

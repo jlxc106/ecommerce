@@ -131,10 +131,6 @@ export const createProduct = (formValues, file, callback) => async dispatch => {
       const uploadConfig = await axios.get(
         `/api/aws_presignedUrl/${file.length}`
       );
-      console.log(uploadConfig);
-      // return;
-      // console.log(file);
-      // return;
       imageUrl = await Promise.all(
         uploadConfig.data.map(async (s3Object, index) => {
           return new Promise(async (resolve, reject) => {
@@ -184,7 +180,6 @@ export const getAllProducts = () => async dispatch => {
 export const getProductById = id => async dispatch => {
   try {
     const res = await axios.get('/api/getProductById');
-    console.log(res);
     if (res.data.message) {
       dispatch({
         type: PRODUCT_ERROR,
@@ -208,7 +203,5 @@ export const editProduct = data => async dispatch => {
     console.error(err);
   }
 
-  // dispatch({
 
-  // })
 };

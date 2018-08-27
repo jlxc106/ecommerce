@@ -25,6 +25,10 @@ class CheckoutForm extends Component {
       let response = await this.props.stripe.createToken({
         name: customerName
       });
+      const {address, city, country, state, zip} = this.props.form.checkout.values;
+      const formAddress = {
+        address, city, country, state, zip
+      }
       let token = response.token;
       token = {
         ...token,
@@ -33,7 +37,9 @@ class CheckoutForm extends Component {
         name,
         quantity,
         price,
-        productId: _id
+        address: formAddress,
+        productId: _id,
+        sellerId: this.props.product.seller._id
       };
       this.props.handleToken(
         token,

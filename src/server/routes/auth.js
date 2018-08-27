@@ -1,9 +1,12 @@
 const requireLogin = require('../middleware/requireLogin');
 const passport = require('passport');
+const serialize = require('serialize-javascript');
+const xss = require('xss');
 
 module.exports = app => {
+  
   app.get('/auth/currentUser', (req, res) => {
-    res.send(req.user);
+    res.send(xss(JSON.stringify(req.user)));
   });
 
   app.post('/auth/signIn', (req, res, next) => {
@@ -19,7 +22,7 @@ module.exports = app => {
           if (err) {
             return next(err, null);
           }
-          return res.send(user);
+          return res.send(xss(JSON.stringify(user)));
         });
       }
     })(req, res, next);
@@ -38,7 +41,7 @@ module.exports = app => {
           if (err) {
             return next(err, null);
           }
-          return res.send(user);
+          return res.send(xss(JSON.stringify(user)));
         });
       }
     })(req, res, next);
@@ -74,6 +77,6 @@ module.exports = app => {
   app.get('/auth/requestAdmin', requireLogin, async (req, res) => {
     req.user.isAdmin = true;
     const user = await req.user.save();
-    res.send(user);
+    res.send(xss(JSON.stringify(user)));
   });
 };
